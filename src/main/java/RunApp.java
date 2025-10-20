@@ -1,4 +1,7 @@
-package PACKAGE_NAME;
-
 public class RunApp {
+
+    public static void run(){
+
+
+    }
 }
