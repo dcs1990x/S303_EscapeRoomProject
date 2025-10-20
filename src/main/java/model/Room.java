@@ -8,7 +8,7 @@ public class Room implements RoomSolvedCallback{
     private String name, theme;
     private char difficulty;
     private boolean isSolved;
-    private List<Item> items;
+    private final List<Item> items;
 
     public Room(String name, String theme, char difficulty){
         this.name = name;
@@ -39,7 +39,7 @@ public class Room implements RoomSolvedCallback{
     }
     public void setDifficulty(char difficulty){this.difficulty = difficulty;}
 
-    public void roomWasSolved(){
+    public void roomWasSolved(Player player){
         setSolved();
         callback();
     }
