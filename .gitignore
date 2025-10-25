@@ -38,3 +38,12 @@ build/
 
 ### Mac OS ###
 .DS_Store
+Thumbs.db
+
+# Ignorar el archivo de variables de entorno locales
+# (Contiene tus contraseñas)
+.env
+
+# Database (En el futuro se añadirá data/)
+local-data/
+data/h2/test.trace.db
