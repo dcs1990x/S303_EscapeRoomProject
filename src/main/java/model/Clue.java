@@ -1,13 +1,13 @@
 package model;
 
-public class Hint {
+public class Clue {
 
     private String name, description;
     private double price;
     private int difficultyPoints;
     private boolean isImportant;
 
-    public Hint(String name, double price, int difficultyPoints, boolean isImportant){
+    public Clue(String name, double price, int difficultyPoints, boolean isImportant){
         this.name = name;
         this.description = "";
         this.price = price;

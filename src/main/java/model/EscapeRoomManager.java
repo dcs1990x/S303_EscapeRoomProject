@@ -6,6 +6,7 @@ public class EscapeRoomManager implements Notifier {
 
     private static EscapeRoomManager instance;
     private String escapeRoomName;
+    private RoomBuilder roomBuilder;
     private ArrayList<Room> rooms;
     private Inventory inventory;
     private ArrayList<Player> subscribersList;

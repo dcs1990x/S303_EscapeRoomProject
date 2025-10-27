@@ -7,7 +7,7 @@ public class Player implements NotifiedPlayer{
     private String name;
     private boolean madeReservation;
     private ArrayList<?> playerInventory;
-    private Hint hint;
+    private Clue hint;
 
     public Player(String name, boolean madeReservation, ArrayList<?> playerInventory){
         this.name = name;
@@ -25,7 +25,7 @@ public class Player implements NotifiedPlayer{
     public void setName(String name){this.name = name;}
     public void setMadeReservation(boolean madeReservation){this.madeReservation = madeReservation;}
 
-    public void solveHint(Hint hint){}
+    public void solveHint(Clue hint){}
 
     @Override
     public void readNotification(Notification notification){}
