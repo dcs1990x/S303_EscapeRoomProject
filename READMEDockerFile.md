@@ -78,8 +78,6 @@ El contenedor h2db detectará automáticamente el archivo test.mv.db de la carpe
 
 ## Paso 4: Probar la Aplicación
 
-Vuelve a la terminal donde tienes `docker-compose up` corriendo. Verás el menú interactivo que se ha creado para pruebas:
-
 Si quieres verificar la base de datos manualmente:
 
 1.  Abre tu navegador web y ve a la consola de H2: **`http://localhost:81`**
