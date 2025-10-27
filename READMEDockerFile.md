@@ -80,26 +80,6 @@ El contenedor h2db detectará automáticamente el archivo test.mv.db de la carpe
 
 Vuelve a la terminal donde tienes `docker-compose up` corriendo. Verás el menú interactivo que se ha creado para pruebas:
 
-Markdown
-
----
-
-## Paso 4: Probar la Aplicación
-
-Vuelve a la terminal donde tienes `docker-compose up` corriendo. Verás el menú interactivo que has creado:
-
---- MI BANCO DE PRUEBAS H2 ---
-
-Listar todos los usuarios
-
-Insertar un nuevo usuario
-
-Salir Elige una opción:
-
-Escribe `1` o `2` y pulsa Enter para interactuar con la aplicación.
-
-### (Opcional) Revisar la Base de Datos
-
 Si quieres verificar la base de datos manualmente:
 
 1.  Abre tu navegador web y ve a la consola de H2: **`http://localhost:81`**
