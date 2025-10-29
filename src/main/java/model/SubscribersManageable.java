@@ -1,8 +1,8 @@
 package model;
 
-public interface Notifier {
+public interface SubscribersManageable {
 
     void registerPlayer(Player player);
     void removePlayer(Player player);
-    void notifySubscribers();
+    void emailSubscribers();
 }

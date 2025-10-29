@@ -2,19 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
-public class EscapeRoomManager implements Notifier {
+public class EscapeRoomManager {
 
     private static EscapeRoomManager instance;
     private String escapeRoomName;
+    private Menu menu;
     private RoomBuilder roomBuilder;
-    private ArrayList<Room> rooms;
+    private ArrayList<Room> rooms = new ArrayList<>();;
     private Inventory inventory;
-    private ArrayList<Player> subscribersList;
+    private SubscribersManager subscribersManager;
 
-    private EscapeRoomManager(){
-        this.rooms = new ArrayList<>();
-        this.subscribersList = new ArrayList<>();
-    }
+    private EscapeRoomManager(){}
 
     public static EscapeRoomManager getInstance(){
         if (instance == null){
@@ -23,34 +21,15 @@ public class EscapeRoomManager implements Notifier {
         return instance;
     }
 
-    public String getEscapeRoomName(){return this.escapeRoomName;}
-    public void getRooms(){
-        for (Room room : rooms){
-            System.out.println(room);
-        }
+    public String getEscapeRoomName(){
+        return this.escapeRoomName;
     }
+
+    public ArrayList<Room> getRooms(){
+        return rooms;
+    }
+
     public void getInventory(){
         System.out.println(inventory);
-    }
-
-    public void getSubscribersList(){
-        for (Player player : subscribersList){
-            System.out.println(player);
-        }
-    }
-
-    @Override
-    public void registerPlayer(Player player) {
-        subscribersList.add(player);
-    }
-
-    @Override
-    public void removePlayer(Player player) {
-        subscribersList.remove(player);
-    }
-
-    @Override
-    public void notifySubscribers() {
-
     }
 }
