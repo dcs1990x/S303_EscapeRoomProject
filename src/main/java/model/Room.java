@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Room implements RoomSolvedCallback{
@@ -8,9 +9,9 @@ public class Room implements RoomSolvedCallback{
     private Theme theme;
     private Difficulty difficulty;
     private boolean isSolved;
-    private List<Decoration> decorations;
-    private List<Item> items;
-    private List<Clue> clues;
+    private List<Decoration> decorations = new ArrayList<>();
+    private List<Item> items = new ArrayList<>();
+    private List<Clue> clues = new ArrayList<>();
 
     public String getName(){
         return this.name;
