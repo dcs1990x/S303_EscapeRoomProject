@@ -4,9 +4,9 @@ public class Notification {
 
     private String name, text;
 
-    public Notification(String name){
+    public Notification(String name, String text){
         this.name = name;
-        this.text = "";
+        this.text = text;
     }
 
     public String getName(){return this.name = name;}

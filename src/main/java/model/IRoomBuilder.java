@@ -2,8 +2,9 @@ package model;
 
 public interface IRoomBuilder {
 
-    void setTheme(Theme theme);
-    void addDecorations(Decoration decoration);
-    void addClues(Clue hint);
+    void setRoomTheme(Theme theme);
+    void addRoomDecoration(Decoration decoration);
+    void addRoomClue(Clue clue);
+    void setRoomDifficulty(Difficulty difficulty);
     Room createRoom();
 }
