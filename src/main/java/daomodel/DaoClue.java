@@ -78,8 +78,7 @@ public class DaoClue implements DaoInterface<Clue>{
     @Override
     public List<Clue> readAllEntities() throws Exception {
         String sql = "SELECT * FROM clues";
-        List<Clue> clues
-                = new ArrayList<>();
+        List<Clue> clues = new ArrayList<>();
         try(PreparedStatement pstmt = connectionDB.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {

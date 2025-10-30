@@ -1,11 +1,11 @@
 package daomodel;
 
+import model.Clue;
 import model.Player;
+import model.Theme;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DaoPlayer implements DaoInterface<Player> {
@@ -17,18 +17,13 @@ public class DaoPlayer implements DaoInterface<Player> {
     @Override
     public void insertEntity(Player entity) throws Exception {
         try {
-            String sql_Insert2 = "INSERT INTO players (name,made-reservation,player-inventory-id) VALUES(?,?,?);";
+            String sql_Insert2 = "INSERT INTO players (name,made-reservation,score) VALUES(?,?,?);";
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setBoolean(2, entity.hasMadeReservation());
-            sqlToInsert.setDouble(3, entity.getInventoryID());
+            sqlToInsert.setDouble(3, entity.getScore());
             sqlToInsert.executeUpdate();
-            //Me falta poner el inventarioID que creo que voy a llamar a otro DAO para resolver el problema y que accepte una lista
-            while(){
-            String sql_Insert2_bis = "INSERT INTO player-inventory(item-id) VALUE (?);";
-            PreparedStatement sqlToInsert2 = connectionDB.prepareStatement(sql_Insert2_bis);
-            sqlToInsert2.setInt(1, entity.getPlayerInventory().getID()));
-            }
+
         } catch (SQLException sqlExcep2) {
             sqlExcep2.getMessage();
         }
@@ -36,21 +31,52 @@ public class DaoPlayer implements DaoInterface<Player> {
 
     @Override
     public Player readEntity(long entityId) throws Exception {
+        String sql = "SELECT * FROM players WHERE id = ?";
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setLong(1, entityId);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Player(rs.getString("name"),
+                        rs.getBoolean("made-reservation"),
+                        rs.getInt("score"));
+            }
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return null;
     }
 
     @Override
     public void updateEntity(long entityId, Player entity) throws Exception {
-
+        String sql = "UPDATE players SET name = ?, made-reservation = ?, score = ? WHERE id = ?";
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setString(1, entity.getName());
+            pstmt.setBoolean(2, entity.hasMadeReservation());
+            pstmt.setInt(3, entity.getScore());
+            pstmt.executeUpdate();
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
     }
 
     @Override
     public void deleteEntity(long entityId) throws Exception {
-
+        String sql = "DELETE FROM players WHERE id = ?";
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setLong(1, entityId);
+            pstmt.executeUpdate();
+            System.out.println("The deletion was completed successfully. \n");
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
     }
 
     @Override
     public List<Player> readAllEntities() throws Exception {
-        return List.of();
+        String sql = "SELECT * FROM players";
+        List<Player> players = new ArrayList<>();
+        try(PreparedStatement pstmt = connectionDB.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                players.add(new Player(rs.getString("name"),
+                        rs.getBoolean("made-reservation"),
+                        rs.getInt("score")));
+            }
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        return players;
     }
 }
