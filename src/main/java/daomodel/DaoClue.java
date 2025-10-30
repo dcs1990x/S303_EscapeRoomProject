@@ -1,6 +1,8 @@
 package daomodel;
 
 import model.Clue;
+import model.Theme;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +22,7 @@ public class DaoClue implements DaoInterface<Clue>{
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setString(2, entity.getDescription());
-            sqlToInsert.setString(3, entity.getTheme());
+            sqlToInsert.setString(3, entity.getTheme().getDescription());
             sqlToInsert.setInt(4, entity.getDifficultyPoints());
             sqlToInsert.setBoolean(5, entity.getIsImportant());
             sqlToInsert.setBoolean(6, entity.getIsSolved());
@@ -33,17 +35,16 @@ public class DaoClue implements DaoInterface<Clue>{
     @Override
     public Clue readEntity(long entityId) throws Exception {
         String sql = "SELECT * FROM clues WHERE id = ?";
-        try ( PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Clue(rs.getString("name"),
                                 rs.getString("description"),
-                                rs.getString("theme"),
+                                Theme.valueOf(rs.getString("theme").toLowerCase()),
                                 rs.getInt("difficulty-points"),
                                 rs.getBoolean("is-important"),
-                                rs.getBoolean("is-solved")
-                                );
+                                rs.getBoolean("is-solved"));
             }
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return null;
@@ -55,7 +56,7 @@ public class DaoClue implements DaoInterface<Clue>{
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1, entity.getName());
             pstmt.setString(2, entity.getDescription());
-            pstmt.setString(3, entity.getTheme());
+            pstmt.setString(3, entity.getTheme().getDescription());
             pstmt.setInt(4, entity.getDifficultyPoints());
             pstmt.setBoolean(5, entity.getIsImportant());
             pstmt.setBoolean(6, entity.getIsSolved());
@@ -84,7 +85,7 @@ public class DaoClue implements DaoInterface<Clue>{
             while (rs.next()) {
                 clues.add(new Clue(rs.getString("name"),
                         rs.getString("description"),
-                        rs.getString("theme"),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
                         rs.getInt("difficulty-points"),
                         rs.getBoolean("is-important"),
                         rs.getBoolean("is-solved")));
