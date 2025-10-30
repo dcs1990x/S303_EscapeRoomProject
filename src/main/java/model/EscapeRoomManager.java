@@ -5,15 +5,14 @@ import java.util.ArrayList;
 public class EscapeRoomManager {
 
     private static EscapeRoomManager instance;
+    private String escapeRoomName;
     private Menu menu;
     private RoomBuilder roomBuilder;
-    private ArrayList<EscapeRoom> escapeRooms;
+    private ArrayList<Room> rooms = new ArrayList<>();;
     private Inventory inventory;
     private SubscribersManager subscribersManager;
 
-    private EscapeRoomManager(){
-        this.escapeRooms = new ArrayList<>();
-    }
+    private EscapeRoomManager(){}
 
     public static EscapeRoomManager getInstance(){
         if (instance == null){
@@ -22,8 +21,12 @@ public class EscapeRoomManager {
         return instance;
     }
 
-    public ArrayList<EscapeRoom> getEscapeRooms(){
-        return escapeRooms;
+    public String getEscapeRoomName(){
+        return this.escapeRoomName;
+    }
+
+    public ArrayList<Room> getRooms(){
+        return rooms;
     }
 
     public void getInventory(){

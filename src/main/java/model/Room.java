@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Room implements RoomSolvedCallback{
@@ -9,9 +8,9 @@ public class Room implements RoomSolvedCallback{
     private Theme theme;
     private Difficulty difficulty;
     private boolean isSolved;
-    private List<Decoration> decorations = new ArrayList<>();
-    private List<Item> items = new ArrayList<>();
-    private List<Clue> clues = new ArrayList<>();
+    private List<Decoration> decorations;
+    private List<Item> items;
+    private List<Clue> clues;
 
     public String getName(){
         return this.name;
@@ -70,20 +69,19 @@ public class Room implements RoomSolvedCallback{
 
     public void roomWasSolved(Player player){
         setSolved();
-        player.setScore(this);
-        callback(player);
+        callback();
     }
 
     @Override
-    public void callback(Player player) {
-        System.out.println("Attention, players. Room " + this.getName() + " has been solved by " + player.getName() + "! ");
+    public void callback() {
+        System.out.println("Attention, players. Room " + getName() + " has been solved. ");
     }
 
     @Override
     public String toString(){
         return "Room " + getName() + System.lineSeparator() +
                 "Theme:  " + getTheme() + System.lineSeparator() +
-                "Difficulty: " + getDifficulty() + System.lineSeparator() +
-                "Solution status: " + getSolvedStatus() + System.lineSeparator();
+                "Solution status: " + getSolvedStatus() + System.lineSeparator() +
+                "Difficulty: " + getDifficulty() + System.lineSeparator();
     }
 }

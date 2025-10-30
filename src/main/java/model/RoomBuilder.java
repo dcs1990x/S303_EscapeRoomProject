@@ -1,6 +1,6 @@
 package model;
 
-public class RoomBuilder implements RoomBuilderInterface {
+public class RoomBuilder implements IRoomBuilder {
 
     private Room room;
 
@@ -9,27 +9,23 @@ public class RoomBuilder implements RoomBuilderInterface {
     }
 
     @Override
-    public RoomBuilderInterface setRoomTheme(Theme theme) {
+    public void setRoomTheme(Theme theme) {
         room.setTheme(theme);
-        return this;
     }
 
     @Override
-    public RoomBuilderInterface setRoomDifficulty(Difficulty difficulty) {
+    public void setRoomDifficulty(Difficulty difficulty) {
         room.setDifficulty(difficulty);
-        return this;
     }
 
     @Override
-    public RoomBuilderInterface addRoomDecoration(Decoration decoration) {
+    public void addRoomDecoration(Decoration decoration) {
         room.addDecoration(decoration);
-        return this;
     }
 
     @Override
-    public RoomBuilderInterface addRoomClue(Clue clue) {
+    public void addRoomClue(Clue clue) {
         room.addClue(clue);
-        return this;
     }
 
     @Override

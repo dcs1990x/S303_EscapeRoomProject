@@ -33,7 +33,7 @@ public class Menu {
                     //createEscapeRoom();
                 } else if (option == 2){
                     checkEmptyEscapeRoom();
-                    escapeRoomManager.getEscapeRooms();
+
                     //manageEscapeRoom();
                 } else if (option == 3){
                     checkEmptyEscapeRoom();
@@ -54,17 +54,16 @@ public class Menu {
     }
 
     public static void checkEmptyEscapeRoom() throws NoSuchObjectException{
-        if (escapeRoomManager.getEscapeRooms() == null || escapeRoomManager.getEscapeRooms().isEmpty()){
+        if (escapeRoomManager.getRooms() == null || escapeRoomManager.getRooms().isEmpty()){
             throw new NoSuchObjectException("There are no previously created escape rooms. ");
         }
     }
 
-    /*public EscapeRoom getEscapeRoomByIndex(int index){
-        for (int i = 0; i < escapeRoomManager.getEscapeRooms().size(); i++){
-            if (escapeRoomManager.getEscapeRooms().get(i).equals(index)){
-                return escapeRoomManager.getEscapeRooms().get(i);
+    public Room getEscapeRoomByIndex(int index){
+        for (int i = 0; i < escapeRoomManager.getRooms().size(); i++){
+            if (escapeRoomManager.getRooms().get(i) == index){
+
             }
         }
-
-    }*/
+    }
 }

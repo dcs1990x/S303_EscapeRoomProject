@@ -13,7 +13,7 @@ public class DaoPlayer implements DaoInterface<Player> {
     public void DaoItem(){
         try{
             this.connectionDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombre_base_de_datos", "Pol_DB", "Aleluia");
-        } catch(SQLException e1){e1.getMessage();}}
+        } catch(SQLException e1){e1.printStackTrace();}}
     @Override
     public void insertEntity(Player entity) throws Exception {
         try {
@@ -24,13 +24,13 @@ public class DaoPlayer implements DaoInterface<Player> {
             sqlToInsert.setDouble(3, entity.getInventoryID());
             sqlToInsert.executeUpdate();
             //Me falta poner el inventarioID que creo que voy a llamar a otro DAO para resolver el problema y que accepte una lista
-            while(){
+            While(){
             String sql_Insert2_bis = "INSERT INTO player-inventory(item-id) VALUE (?);";
             PreparedStatement sqlToInsert2 = connectionDB.prepareStatement(sql_Insert2_bis);
-            sqlToInsert2.setInt(1, entity.getPlayerInventory().getID()));
+            sqlToInsert2.setInt(1, entity.getPlayerInventory().getID())
             }
         } catch (SQLException sqlExcep2) {
-            sqlExcep2.getMessage();
+            sqlExcep2.printStackTrace();
         }
     }
 

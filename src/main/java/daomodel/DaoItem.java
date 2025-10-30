@@ -1,8 +1,6 @@
 package daomodel;
 
 import model.Item;
-import model.Theme;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +29,7 @@ public class DaoItem implements DaoInterface<Item>{
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setString(2, entity.getDescription());
-            sqlToInsert.setString(3, entity.getTheme().getDescription());
+            sqlToInsert.setString(3, entity.getTheme());
             sqlToInsert.setDouble(4, entity.getPrice());
             sqlToInsert.setBoolean(5, entity.getIsImportant());
             sqlToInsert.executeUpdate();
@@ -49,7 +47,7 @@ public class DaoItem implements DaoInterface<Item>{
             if (rs.next()) {
                 return new Item(rs.getString("name"),
                         rs.getString("description"),
-                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        rs.getString("theme"),
                         rs.getDouble("price"),
                         rs.getBoolean("is-important"));
             }
@@ -63,7 +61,7 @@ public class DaoItem implements DaoInterface<Item>{
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1, entity.getName());
             pstmt.setString(2, entity.getDescription());
-            pstmt.setString(3, entity.getTheme().getDescription());
+            pstmt.setString(3, entity.getTheme());
             pstmt.setDouble(4, entity.getPrice());
             pstmt.setBoolean(5, entity.getIsImportant());
             pstmt.setLong(6, entityId);
@@ -91,7 +89,7 @@ public class DaoItem implements DaoInterface<Item>{
              while (rs.next()) {
                  items.add(new Item(rs.getString("name"),
                          rs.getString("description"),
-                         Theme.valueOf(rs.getString("theme").toLowerCase()),
+                         rs.getString("theme"),
                          rs.getDouble("price"),
                          rs.getBoolean("is-important")));
             }
