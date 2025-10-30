@@ -2,5 +2,5 @@ package model;
 
 public interface RoomSolvedCallback {
 
-    void callback();
+    void callback(Player player);
 }

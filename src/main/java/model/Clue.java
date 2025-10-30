@@ -6,14 +6,15 @@ public class Clue {
     private Theme theme;
     private int difficultyPoints;
     private boolean isImportant;
-    private boolean isSolved = false;
+    private boolean isSolved;
 
-    public Clue(String name, String description, Theme theme, int difficultyPoints, boolean isImportant){
+    public Clue(String name, String description, Theme theme, int difficultyPoints, boolean isImportant, boolean isSolved){
         this.name = name;
         this.description = description;
         this.theme = theme;
         this.difficultyPoints = difficultyPoints;
         this.isImportant = isImportant;
+        this.isSolved = isSolved;
     }
 
     public String getName(){return this.name;}
