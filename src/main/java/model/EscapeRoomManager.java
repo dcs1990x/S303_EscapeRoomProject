@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class EscapeRoomManager {
 
     private static EscapeRoomManager instance;
-    private Menu menu;
+    private CreateManageDeleteERMenu menu;
     private RoomBuilder roomBuilder;
     private ArrayList<EscapeRoom> escapeRooms = new ArrayList<>();
     private Inventory inventory;
@@ -49,18 +49,6 @@ public class EscapeRoomManager {
         }
         System.out.println("The name entered does not correspond to an existing escape room.");
         return Optional.empty();
-    }
-
-    public void manageEscapeRoom() throws NoSuchObjectException{
-        checkEmptyEscapeRoomList();
-        System.out.println("What do you want to do?");
-        System.out.println("1. CREATE A ROOM" + System.lineSeparator() +
-                "2. MODIFY ROOM" + System.lineSeparator() +
-                "3. DELETE ROOM");
-        byte option = scanner.nextByte();
-        scanner.nextLine();
-
-
     }
 
     public void deleteEscapeRoom(Optional<EscapeRoom> escapeRoomToDelete) throws NoSuchObjectException{
