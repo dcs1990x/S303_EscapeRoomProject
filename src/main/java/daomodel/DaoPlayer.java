@@ -1,4 +1,4 @@
-package daomodel;
+/*package daomodel;
 
 import model.Player;
 
@@ -53,4 +53,4 @@ public class DaoPlayer implements DaoInterface<Player> {
     public List<Player> readAllEntities() throws Exception {
         return List.of();
     }
-}
+}*/
