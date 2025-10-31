@@ -2,8 +2,8 @@ package model;
 
 import java.rmi.NoSuchObjectException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
-
 
 public class EscapeRoomManager {
 
@@ -30,31 +30,23 @@ public class EscapeRoomManager {
         return new EscapeRoom(name);
     }
 
-    public EscapeRoom getEscapeRoomByConsole() throws NoSuchObjectException {
+    public Optional<EscapeRoom> getEscapeRoomByConsole() throws NoSuchObjectException {
         System.out.println("These are the existing escape rooms: ");
         System.out.println("\n" + instance.getEscapeRoomsList() + "\n");
         System.out.println("Please type the escape room's name or type \"Return\" to go back. ");
-        String name = scanner.nextLine();
+        String name = scanner.nextLine().trim();
 
-        /*if (name.trim().equalsIgnoreCase("return")) {
-
-        }*/
+        if (name.equalsIgnoreCase("return")) {
+            return Optional.empty();
+        }
 
         for (EscapeRoom escapeRoom : escapeRooms) {
-            if (name.trim().equalsIgnoreCase(escapeRoom.getEscapeRoomName())){
-                return escapeRoom;
+            if (name.equalsIgnoreCase(escapeRoom.getEscapeRoomName())){
+                return Optional.of(escapeRoom);
             }
         }
-        throw new NoSuchObjectException("The name entered does not correspond to an existing escape room. ");
-    }
-
-    public EscapeRoom getEscapeRoom(String escapeRoomName) throws NoSuchObjectException {
-        for (EscapeRoom escapeRoom : escapeRooms){
-            if (escapeRoom.getEscapeRoomName().equalsIgnoreCase(escapeRoomName)){
-                return escapeRoom;
-            }
-        }
-        throw new NoSuchObjectException("The name entered does not correspond to an existing escape room. ");
+        System.out.println("The name entered does not correspond to an existing escape room.");
+        return Optional.empty();
     }
 
     public void manageEscapeRoom() throws NoSuchObjectException{
@@ -69,7 +61,7 @@ public class EscapeRoomManager {
 
     }
 
-    public void deleteEscapeRoom(EscapeRoom escapeRoomToDelete) throws NoSuchObjectException{
+    public void deleteEscapeRoom(Optional<EscapeRoom> escapeRoomToDelete) throws NoSuchObjectException{
         checkEmptyEscapeRoomList();
         escapeRooms.remove(escapeRoomToDelete);
     }

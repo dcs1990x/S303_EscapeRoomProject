@@ -2,6 +2,7 @@ package model;
 
 import java.rmi.NoSuchObjectException;
 import java.util.InputMismatchException;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Menu {
@@ -35,7 +36,7 @@ public class Menu {
                     escapeRoomManager.getEscapeRoomByConsole();
                     //manageEscapeRoom();
                 } else if (option == 3){
-                    EscapeRoom escapeRoomToDelete = escapeRoomManager.getEscapeRoomByConsole();
+                    Optional<EscapeRoom> escapeRoomToDelete = escapeRoomManager.getEscapeRoomByConsole();
                     escapeRoomManager.deleteEscapeRoom(escapeRoomToDelete);
                     System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" has been deleted successfully. ");
                 } else if (option == 0){
