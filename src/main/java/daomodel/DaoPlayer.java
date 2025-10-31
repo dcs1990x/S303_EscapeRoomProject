@@ -8,6 +8,7 @@ import model.Theme;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DaoPlayer implements DaoInterface<Player> {
     Connection connectionDB;
@@ -19,12 +20,16 @@ public class DaoPlayer implements DaoInterface<Player> {
     public void insertEntity(Player entity) throws Exception {
         try {
             String sql_Insert2 = "INSERT INTO players (name,made-reservation,score) VALUES(?,?,?);";
-            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2);
+            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setBoolean(2, entity.hasMadeReservation());
             sqlToInsert.setDouble(3, entity.getScore());
             sqlToInsert.executeUpdate();
-
+            try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
+                if (rs.next()) {
+                    entity.setIdPlayer(rs.getInt(1));
+                }
+            }
         } catch (SQLException sqlExcep2) {
             sqlExcep2.getMessage();
         }

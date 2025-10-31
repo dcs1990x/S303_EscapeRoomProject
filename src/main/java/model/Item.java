@@ -2,6 +2,7 @@ package model;
 
 public class Item {
 
+    private int idItem;
     private String name, description;
     private Theme theme;
     private double price;
@@ -15,12 +16,14 @@ public class Item {
         this.isImportant = isImportant;
     }
 
+    public int getIdItem(){return this.idItem;}
     public String getName(){return this.name;}
     public String getDescription(){return this.description;}
     public Theme getTheme(){return this.theme;}
     public double getPrice(){return this.price;}
     public boolean getIsImportant(){return this.isImportant;}
 
+    public void setIdItem(int id){this.idItem = id;}
     public void setName(String name){this.name = name;}
     public void setDescription(String description){this.description = description;}
     public void setTheme(Theme theme){this.theme = theme;}
