@@ -2,7 +2,11 @@ package model;
 
 public enum Difficulty {
 
-    VERY_HARD("Very Hard"), HARD("Hard"), NORMAL("Normal"), EASY("Easy"), VERY_EASY("Very Easy");
+    VERY_EASY("Very Easy"), EASY("Easy"), NORMAL("Normal"), HARD("Hard"), VERY_HARD("Very Hard");
 
-    Difficulty(String difficulty) {}
+    private String description;
+
+    Difficulty(String description) {
+        this.description = description;
+    }
 }
