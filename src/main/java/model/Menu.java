@@ -37,8 +37,9 @@ public class Menu {
                     //manageEscapeRoom();
                 } else if (option == 3){
                     Optional<EscapeRoom> escapeRoomToDelete = escapeRoomManager.getEscapeRoomByConsole();
+                    EscapeRoom room = escapeRoomToDelete.get();
                     escapeRoomManager.deleteEscapeRoom(escapeRoomToDelete);
-                    System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" has been deleted successfully. ");
+                    System.out.println("The escape room \"" + room.getEscapeRoomName() + "\" has been deleted successfully. ");
                 } else if (option == 0){
                     System.out.println("\nYou exited the programme. \n");
                     return;
