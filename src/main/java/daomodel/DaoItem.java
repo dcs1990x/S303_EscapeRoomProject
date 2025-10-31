@@ -1,5 +1,6 @@
 package daomodel;
 
+import database.DatabaseManagerTest;
 import model.Item;
 import model.Theme;
 
@@ -11,9 +12,9 @@ public class DaoItem implements DaoInterface<Item>{
     Connection connectionDB;
 
     public void DaoItem(){
-       try{
-           this.connectionDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombre_base_de_datos", "Pol_DB", "Aleluia");
-       } catch(SQLException e1){e1.getMessage();}}
+        try{
+            this.connectionDB = DatabaseManagerTest.getConnection();
+        } catch(SQLException e1){e1.getMessage();}}
 
     @Override
     public void insertEntity(Item entity) throws Exception {

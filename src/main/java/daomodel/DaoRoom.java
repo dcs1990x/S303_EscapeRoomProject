@@ -1,9 +1,19 @@
 package daomodel;
 
+import database.DatabaseManagerTest;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DaoRoom implements DaoInterface{
+    Connection connectionDB;
 
+    public void DaoRoom(){
+        try{
+            this.connectionDB = DatabaseManagerTest.getConnection();
+        } catch(SQLException e1){e1.getMessage();}
+    }
     @Override
     public void insertEntity(Object entity) throws Exception {
 

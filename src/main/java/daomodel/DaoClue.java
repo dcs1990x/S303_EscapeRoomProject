@@ -1,8 +1,10 @@
 package daomodel;
 
+import database.DatabaseManagerTest;
 import model.Clue;
 import model.Theme;
 
+import java.net.ConnectException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,7 @@ public class DaoClue implements DaoInterface<Clue>{
 
     public void DaoClue(){
         try{
-            this.connectionDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombre_base_de_datos", "Pol_DB", "Aleluia");
+            this.connectionDB = DatabaseManagerTest.getConnection();
         } catch(SQLException e1){e1.getMessage();}}
 
     @Override
