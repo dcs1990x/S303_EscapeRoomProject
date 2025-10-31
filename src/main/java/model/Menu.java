@@ -9,7 +9,7 @@ public class Menu {
     private static final Scanner scanner = new Scanner(System.in);
     private static EscapeRoomManager escapeRoomManager;
 
-    public static void showInititalScreen(){
+    public static void showInitialScreen(){
         System.out.println("\n<========WELCOME TO THE ESCAPE ROOM MANAGER APP========>\n");
     }
 
@@ -22,7 +22,6 @@ public class Menu {
     }
 
     public static void executeMenuOption(){
-
         byte option = -1;
         while (option != 0){
             try{
@@ -30,15 +29,15 @@ public class Menu {
                 scanner.nextLine();
 
                 if (option == 1){
-                    //createEscapeRoom();
+                    EscapeRoom escapeRoom = escapeRoomManager.createEscapeRoom();
+                    System.out.println("The escape room \"" + escapeRoom.getEscapeRoomName() + "\" has been created successfully. ");
                 } else if (option == 2){
-                    checkEmptyEscapeRoom();
-                    escapeRoomManager.getEscapeRooms();
+                    escapeRoomManager.getEscapeRoomByConsole();
                     //manageEscapeRoom();
                 } else if (option == 3){
-                    checkEmptyEscapeRoom();
-
-                    //deleteEscapeRoom();
+                    EscapeRoom escapeRoomToDelete = escapeRoomManager.getEscapeRoomByConsole();
+                    escapeRoomManager.deleteEscapeRoom(escapeRoomToDelete);
+                    System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" has been deleted successfully. ");
                 } else if (option == 0){
                     System.out.println("\nYou exited the programme. \n");
                     return;
@@ -52,19 +51,4 @@ public class Menu {
             }
         }
     }
-
-    public static void checkEmptyEscapeRoom() throws NoSuchObjectException{
-        if (escapeRoomManager.getEscapeRooms() == null || escapeRoomManager.getEscapeRooms().isEmpty()){
-            throw new NoSuchObjectException("There are no previously created escape rooms. ");
-        }
-    }
-
-    /*public EscapeRoom getEscapeRoomByIndex(int index){
-        for (int i = 0; i < escapeRoomManager.getEscapeRooms().size(); i++){
-            if (escapeRoomManager.getEscapeRooms().get(i).equals(index)){
-                return escapeRoomManager.getEscapeRooms().get(i);
-            }
-        }
-
-    }*/
 }

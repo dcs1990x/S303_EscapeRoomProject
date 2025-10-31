@@ -16,6 +16,7 @@ public class Room implements RoomSolvedCallback{
     public String getName(){
         return this.name;
     }
+
     public Theme getTheme(){
         return this.theme;
     }
