@@ -1,11 +1,16 @@
 import menus.CreateManageDeleteERMenu;
+import model.RoomBuilder;
 
 public class RunApp {
 
-    public static void run(){
+    private CreateManageDeleteERMenu createManageDeleteERMenu = new CreateManageDeleteERMenu();
 
-        CreateManageDeleteERMenu.showWelcomeMessage();
-        CreateManageDeleteERMenu.showMainMenu();
-        CreateManageDeleteERMenu.executeMainMenuOption();
+    public void run(){
+        RoomBuilder roomBuilder = new RoomBuilder();
+        createManageDeleteERMenu.setRoomBuilder(roomBuilder);
+
+        createManageDeleteERMenu.showWelcomeMessage();
+        createManageDeleteERMenu.showMainMenu();
+        createManageDeleteERMenu.executeMainMenuOption();
     }
 }

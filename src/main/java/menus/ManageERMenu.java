@@ -3,16 +3,14 @@ package menus;
 import model.EscapeRoom;
 import model.Room;
 import model.RoomBuilderInterface;
-
+import model.UserInput;
 import java.rmi.NoSuchObjectException;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Scanner;
-import static model.EscapeRoom.*;
 
 public class ManageERMenu {
 
-    private static final Scanner scanner = new Scanner(System.in);
     private CreateManageDeleteERMenu createManageDeleteERMenu;
     private EscapeRoom escapeRoom;
     private RoomBuilderInterface roomBuilder;
@@ -23,18 +21,16 @@ public class ManageERMenu {
                 "2. MODIFY ROOM" + System.lineSeparator() +
                 "3. DELETE ROOM" + System.lineSeparator() +
                 "0. GO BACK" + System.lineSeparator());
-        System.out.print("Please select an option: ");
     }
 
     public void executeModifyRoomsMenuOption(){
         byte modifyRoomsMenuOption = -1;
         while (modifyRoomsMenuOption != 0){
             try{
-                modifyRoomsMenuOption = scanner.nextByte();
-                scanner.nextLine();
+                modifyRoomsMenuOption = UserInput.readByte("Please select an option: ");
 
                 if (modifyRoomsMenuOption == 1){
-                    createRoom(this.roomBuilder);
+                    roomBuilder.createRoom();
                     System.out.println("\nThe room was created successfully. ");
                     modifyRoomsMenu();
                 } else if (modifyRoomsMenuOption == 2){
@@ -43,17 +39,28 @@ public class ManageERMenu {
                     Optional<Room> selectedRoom = escapeRoom.getRoomByConsole();
                     Room roomToDelete = selectedRoom.get();
                     escapeRoom.deleteEscapeRoom(roomToDelete);
-                    System.out.println("The escape room \"" + roomToDelete.getName() + "\" has been deleted successfully. ");
+                    System.out.println("The escape room \"" + roomToDelete.getName() + "\" was deleted successfully. ");
+                    modifyRoomsMenu();
+                    executeModifyRoomsMenuOption();
                 } else if (modifyRoomsMenuOption == 0){
-                    CreateManageDeleteERMenu.executeMainMenuOption();
+                    createManageDeleteERMenu.showMainMenu();
                 } else {
-                    throw new InputMismatchException("\nInvalid option. \n");
+                    throw new InputMismatchException();
                 }
             } catch (InputMismatchException ime){
-                System.out.println(ime.getMessage());
-            } catch (NoSuchObjectException nsoe) {
-                System.out.println(nsoe.getMessage());
+                System.out.println("Invalid input. ");
+            } catch (NoSuchElementException nsee){
+                System.out.println(nsee.getMessage());
+                createManageDeleteERMenu.showMainMenu();
+            } catch (NumberFormatException nfe){
+                System.out.println("Invalid input. Please enter a number between 0 and 3: ");
+                createManageDeleteERMenu.showMainMenu();
+            } catch (NoSuchObjectException e) {
+                System.out.println("A room with the entered name was not found. ");
             }
         }
+    }
+    public void setRoomBuilder(RoomBuilderInterface roomBuilder) {
+        this.roomBuilder = roomBuilder;
     }
 }

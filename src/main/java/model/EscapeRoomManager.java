@@ -4,12 +4,11 @@ import menus.CreateManageDeleteERMenu;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class EscapeRoomManager {
 
     private static EscapeRoomManager instance;
-    private CreateManageDeleteERMenu menu;
+    private CreateManageDeleteERMenu menu = new CreateManageDeleteERMenu();
     private ArrayList<EscapeRoom> escapeRooms = new ArrayList<>();
     private Inventory inventory;
     private SubscribersManager subscribersManager;

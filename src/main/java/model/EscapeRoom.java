@@ -26,8 +26,38 @@ public class EscapeRoom {
         return List.copyOf(rooms);
     }
 
-    public static Room createRoom(RoomBuilderInterface roomBuilder){
-        return roomBuilder.createRoom();
+    public Room createRoom(RoomBuilderInterface roomBuilder){
+        String RoomName = UserInput.readLine("Please enter the name of the room: ");
+        roomBuilder.setRoomName(RoomName);
+
+        System.out.println("These are the themes for the rooms: \n");
+        Theme.getThemesList();
+        String roomTheme = UserInput.readLine("\nPlease choose a theme from the list for the new room: ");
+        Theme theme = Theme.fromString(roomTheme);
+        roomBuilder.setRoomTheme(Theme.valueOf(theme));
+
+        System.out.println("These are the difficulty levels for the rooms: \n");
+        Difficulty.getDifficultiesList();
+        String roomDifficulty = UserInput.readLine("\nPlease choose a difficulty from the list for the new room: ");
+        Difficulty difficulty = Difficulty.fromString(roomDifficulty);
+        roomBuilder.setRoomDifficulty(Difficulty.valueOf(difficulty));
+
+        byte addDecoOrGoBackOption = 1;
+        while (addDecoOrGoBackOption == 1) {
+            String decoration = UserInput.readLine("Type a piece of decoration to add to the room: ");
+            roomBuilder.addRoomDecoration(decoration);
+            addDecoOrGoBackOption = UserInput.readByte("Would you like to add another piece of decoration? Press 1 to add another decoration, press any other key to go back: ");
+        }
+
+        byte addItemOrGoBackOption = 1;
+        while (addItemOrGoBackOption == 1) {
+            String item = UserInput.readLine("Type an item to add to the room: ");
+            addItemOrGoBackOption = UserInput.readByte("Would you like to add another item? Press 1 to add another item, press any other key to go back: ");
+        }
+
+        Room roomCreated = roomBuilder.createRoom();
+        rooms.add(roomCreated);
+        return roomCreated;
     }
 
     public Optional<Room> getRoomByConsole() throws NoSuchObjectException {

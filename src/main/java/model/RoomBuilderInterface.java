@@ -2,6 +2,7 @@ package model;
 
 public interface RoomBuilderInterface {
 
+    RoomBuilderInterface setRoomName(String name);
     RoomBuilderInterface setRoomTheme(Theme theme);
     RoomBuilderInterface addRoomDecoration(Decoration decoration);
     RoomBuilderInterface addRoomClue(Clue clue);

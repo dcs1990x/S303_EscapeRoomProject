@@ -2,8 +2,8 @@ package menus;
 
 import model.EscapeRoom;
 import model.EscapeRoomManager;
+import model.RoomBuilderInterface;
 import model.UserInput;
-
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -12,20 +12,20 @@ import static menus.ManageERMenu.modifyRoomsMenu;
 public class CreateManageDeleteERMenu {
 
     private static final EscapeRoomManager escapeRoomManager = EscapeRoomManager.getInstance();
-    private static ManageERMenu manageERMenu;
+    private ManageERMenu manageERMenu = new ManageERMenu();
 
-    public static void showWelcomeMessage(){
+    public void showWelcomeMessage(){
         System.out.println("\n<========WELCOME TO THE ESCAPE ROOM MANAGER APP========>");
     }
 
-    public static void showMainMenu(){
+    public void showMainMenu(){
         System.out.println("\n1. CREATE ESCAPE ROOM" + System.lineSeparator() +
                 "2. MANAGE EXISTING ESCAPE ROOM" + System.lineSeparator() +
                 "3. DELETE EXISTING ESCAPE ROOM" + System.lineSeparator() +
                 "0. EXIT THE PROGRAMME" + System.lineSeparator());
     }
 
-    public static void executeMainMenuOption(){
+    public void executeMainMenuOption(){
         byte mainMenuOption = -1;
         while (mainMenuOption != 0) {
             try {
@@ -41,8 +41,10 @@ public class CreateManageDeleteERMenu {
 
                     if (selectedEscapeRoom.isEmpty()) {
                         showMainMenu();
+                        executeMainMenuOption();
                     } else if (selectedEscapeRoom.isPresent()) {
                         modifyRoomsMenu();
+                        manageERMenu.executeModifyRoomsMenuOption();
                     } else {
                         throw new InputMismatchException();
                     }
@@ -52,6 +54,7 @@ public class CreateManageDeleteERMenu {
                     escapeRoomManager.deleteEscapeRoom(escapeRoomToDelete);
                     System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" was deleted successfully. ");
                     showMainMenu();
+                    executeMainMenuOption();
                 } else if (mainMenuOption == 0) {
                     System.out.println("\nYou exited the programme. \n");
                     return;
@@ -63,10 +66,16 @@ public class CreateManageDeleteERMenu {
             } catch (NoSuchElementException nsee){
                 System.out.println(nsee.getMessage());
                 showMainMenu();
+                executeMainMenuOption();
             } catch (NumberFormatException nfe){
                 System.out.println("Invalid input. Please enter a number between 0 and 3: ");
                 showMainMenu();
+                executeMainMenuOption();
             }
         }
+    }
+
+    public void setRoomBuilder(RoomBuilderInterface roomBuilder) {
+        manageERMenu.setRoomBuilder(roomBuilder);
     }
 }
