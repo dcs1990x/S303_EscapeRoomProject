@@ -22,6 +22,14 @@ public class Player implements NotifiedPlayer{
         this.madeReservation = madeReservation;
         this.score = score;
     }
+    public Player(int id, String name, boolean madeReservation,int score){
+        this.idPlayer = id;
+        this.name = name;
+        this.madeReservation = madeReservation;
+        this.score = score;
+    }
+
+    public Player() {}
 
     public int getIdPlayer(){return this.idPlayer;}
     public String getName(){
@@ -101,5 +109,8 @@ public class Player implements NotifiedPlayer{
         return "Player " + System.lineSeparator() +
                 "Name: " + getName() + System.lineSeparator() +
                 "Made reservation? " + hasMadeReservation() + System.lineSeparator();
+    }
+    public boolean isEmpty(){
+        return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
     }
 }

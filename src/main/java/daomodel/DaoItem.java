@@ -1,6 +1,7 @@
 package daomodel;
 
 import database.DatabaseManagerTest;
+import model.Clue;
 import model.Item;
 import model.Theme;
 
@@ -16,6 +17,30 @@ public class DaoItem implements DaoInterface<Item>{
         try{
             this.connectionDB = DatabaseManagerTest.getConnection();
         } catch(SQLException e1){e1.getMessage();}}
+
+    public boolean duplicate(Item item){
+        String sql = "SELECT * FROM items WHERE id= ? , name = ?, description = ?, theme =?, price = ?, is-important = ?";
+        Item itemObtained = new Item();
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setLong(1, item.getIdItem());
+            pstmt.setString(2,item.getName());
+            pstmt.setString(3,item.getDescription());
+            pstmt.setString(4,item.getTheme().getDescription());
+            pstmt.setDouble(5,item.getPrice());
+            pstmt.setBoolean(6, item.getIsImportant());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                itemObtained = new Item(rs.getInt("id"),rs.getString("name"),
+                        rs.getString("description"),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        rs.getDouble("price"),
+                        rs.getBoolean("is-important"));
+            }
+
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        return itemObtained.equals(item);
+    }
 
     @Override
     public void insertEntity(Item entity) throws Exception {

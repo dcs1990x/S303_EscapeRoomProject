@@ -8,7 +8,17 @@ public class Item {
     private double price;
     private boolean isImportant;
 
+    public Item(){}
+
     public Item(String name, String description, Theme theme, double price, boolean isImportant){
+        this.name = name;
+        this.description = description;
+        this.theme = theme;
+        this.price = price;
+        this.isImportant = isImportant;
+    }
+    public Item(int id,String name, String description, Theme theme, double price, boolean isImportant){
+        this.idItem = id;
         this.name = name;
         this.description = description;
         this.theme = theme;
@@ -28,4 +38,7 @@ public class Item {
     public void setDescription(String description){this.description = description;}
     public void setTheme(Theme theme){this.theme = theme;}
     public void setPrice(double price){this.price = price;}
+    public boolean isEmpty(){
+        return name == null && description == null && theme == null && price == 0 && isImportant == false;
+    }
 }
