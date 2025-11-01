@@ -12,10 +12,9 @@ public class DaoTicket implements DaoInterface<Ticket> {
 
     Connection connectionDB;
 
-    public void DaoTicket(){
-        try{
-            this.connectionDB = DatabaseManagerTest.getConnection();
-        } catch(SQLException e1){e1.getMessage();}}
+    public void DaoTicket() {
+        this.connectionDB = DatabaseManagerTest.getConnection();
+    }
 
     public boolean duplicate(Ticket ticket){
         try{ if(ticket.getIdPlayer() == 0){

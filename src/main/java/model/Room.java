@@ -29,16 +29,19 @@ public class Room implements RoomSolvedCallback{
         return this.difficulty;
     }
 
-    public void getItems(){
+    public List<Item> getItems(){
         for (Item item : items){
             System.out.println(item);
         }
+        return items;
+
     }
 
-    public void getClues(){
+    public List<Clue> getClues(){
         for (Clue clue : clues){
             System.out.println(clue);
         }
+        return clues;
     }
 
     public void setName(String name){

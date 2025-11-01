@@ -14,9 +14,8 @@ public class DaoItem implements DaoInterface<Item>{
     Connection connectionDB;
 
     public void DaoItem(){
-        try{
             this.connectionDB = DatabaseManagerTest.getConnection();
-        } catch(SQLException e1){e1.getMessage();}}
+}
 
     public boolean duplicate(Item item){
         String sql = "SELECT * FROM items WHERE id= ? , name = ?, description = ?, theme =?, price = ?, is-important = ?";
@@ -31,7 +30,7 @@ public class DaoItem implements DaoInterface<Item>{
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                itemObtained = new Item(rs.getInt("id"),rs.getString("name"),
+                itemObtained = new Item(rs.getString("name"),
                         rs.getString("description"),
                         Theme.valueOf(rs.getString("theme").toLowerCase()),
                         rs.getDouble("price"),
@@ -109,14 +108,14 @@ public class DaoItem implements DaoInterface<Item>{
         String sql = "SELECT * FROM items";
         List<Item> items = new ArrayList<>();
         try (
-             PreparedStatement pstmt = connectionDB.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-             while (rs.next()) {
-                 items.add(new Item(rs.getString("name"),
-                         rs.getString("description"),
-                         Theme.valueOf(rs.getString("theme").toLowerCase()),
-                         rs.getDouble("price"),
-                         rs.getBoolean("is-important")));
+                PreparedStatement pstmt = connectionDB.prepareStatement(sql);
+                ResultSet rs = pstmt.executeQuery()) {
+            while (rs.next()) {
+                items.add(new Item(rs.getString("name"),
+                        rs.getString("description"),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        rs.getDouble("price"),
+                        rs.getBoolean("is-important")));
             }
         }
         return items;

@@ -1,6 +1,7 @@
 package servicelayer;
 
 import daomodel.DaoPlayer;
+import dtomodel.ItemDTO;
 import dtomodel.PlayerDTO;
 import model.Player;
 
@@ -15,7 +16,7 @@ public class PlayerService {
     public boolean searchDuplicates(Player player){
         return daoPlayer.duplicate(player);
     }
-
+/*
     public void addClue(Player player){
         try{
             if(!player.isEmpty()||!searchDuplicates(player)){
@@ -27,7 +28,8 @@ public class PlayerService {
             System.out.println("Player was not added correctly, please try again with the correct format");
         }
 
-    }
+    }*/
+    /*
     public void updateClue(Player player){
         try{
             if(!player.isEmpty()||searchDuplicates(player)){
@@ -38,7 +40,8 @@ public class PlayerService {
             System.err.println(sqle1.getMessage());
             System.out.println("Player was not added correctly, please try again with the correct format");
         }
-    }
+    }*/
+
     public PlayerDTO readItemById(long id){
         Player readPlayer = null;
         try{

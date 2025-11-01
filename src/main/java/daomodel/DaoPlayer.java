@@ -14,9 +14,12 @@ import java.util.List;
 public class DaoPlayer implements DaoInterface<Player> {
     Connection connectionDB;
     public void DaoPlayer(){
-        try{
-            this.connectionDB = DatabaseManagerTest.getConnection();
-        } catch(SQLException e1){e1.getMessage();}}
+
+        this.connectionDB = DatabaseManagerTest.getConnection();
+    }
+
+
+
     public boolean duplicate(Player player){
         String sql = "SELECT * FROM players WHERE id= ? , name = ?, made-reservation = ?, score = ? ";
         Player playerObtained = new Player();
@@ -24,12 +27,12 @@ public class DaoPlayer implements DaoInterface<Player> {
             pstmt.setLong(1, player.getIdPlayer());
             pstmt.setString(2,player.getName());
             pstmt.setBoolean(3, player.hasMadeReservation());
-           pstmt.setDouble(4,player.getScore());
+            pstmt.setDouble(4,player.getScore());
 
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                playerObtained = new Player(rs.getInt("id"),rs.getString("name"),
+                playerObtained = new Player(rs.getString("name"),
                         rs.getBoolean("made-reservation"),
                         rs.getInt("score"));
             }

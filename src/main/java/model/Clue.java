@@ -44,4 +44,15 @@ public class Clue {
     public boolean isEmpty(){
         return name == null && description == null && theme == null && difficultyPoints == 0 && isImportant == false && isSolved == false;
     }
+
+    @Override
+    public String toString(){
+        return "id= " + idClue + ",\n" +
+                "name= " + name + ",\n" +
+                "theme " + theme.toString() + ",\n" +
+                ", description='" + description + ",\n" +
+                ", difficultyPoins=" + difficultyPoints +",\n"+
+                "isSolved=" + isSolved +",\n"+
+                '}';
+    }
 }

@@ -11,10 +11,21 @@ import java.util.Optional;
 public class DaoClue implements DaoInterface<Clue>{
     Connection connectionDB;
 
-    public void DaoClue(){
-        try{
+    public DaoClue(){
+        System.out.println("Inicializando DaoClue...");
+        try {
             this.connectionDB = DatabaseManagerTest.getConnection();
-        } catch(SQLException e1){e1.getMessage();}}
+            if (this.connectionDB != null) {
+                System.out.println("✅ Conexión establecida en DaoClue");
+            } else {
+                System.err.println("❌ La conexión es NULL en DaoClue");
+            }
+        } catch (Exception e) {
+            System.err.println("❌ Error al obtener conexión: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
     public boolean duplicate(Clue clue){
         String sql = "SELECT * FROM clues WHERE id= ? , name = ?, description = ?, theme =?, difficulty-points = ?, is-important = ?, is-solved = ?";
@@ -44,23 +55,43 @@ public class DaoClue implements DaoInterface<Clue>{
 
     @Override
     public void insertEntity(Clue entity) throws Exception {
-        try {
-            String sql_Insert2 = "INSERT INTO clues (name, description, theme, difficultyPoints, isImportant, isSolved) VALUES(?,?,?,?,?,?);";
-            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2,Statement.RETURN_GENERATED_KEYS);
+        // Verificar conexión
+        if (connectionDB == null) {
+            throw new SQLException("❌ Connection is null in insertEntity");
+        }
+
+        // CORRECCIÓN: Usar los nombres correctos de columnas
+        String sql_Insert2 = "INSERT INTO \"clue\" (name, description, theme, difficultyPoints, isImportant, isSolved) VALUES(?,?,?,?,?,?);";
+
+        try (PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS)) {
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setString(2, entity.getDescription());
             sqlToInsert.setString(3, entity.getTheme().getDescription());
             sqlToInsert.setInt(4, entity.getDifficultyPoints());
             sqlToInsert.setBoolean(5, entity.getIsImportant());
             sqlToInsert.setBoolean(6, entity.getIsSolved());
-            sqlToInsert.executeUpdate();
+
+            int affectedRows = sqlToInsert.executeUpdate();
+            System.out.println("✅ Filas insertadas: " + affectedRows);
+
+            if (affectedRows == 0) {
+                throw new SQLException("❌ Inserting clue failed, no rows affected.");
+            }
+
             try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
                 if (rs.next()) {
                     entity.setIdClue(rs.getInt(1));
+                    System.out.println("✅ ID generado: " + entity.getIdClue());
+                } else {
+                    throw new SQLException("❌ Inserting clue failed, no ID obtained.");
                 }
             }
-        } catch (SQLException sqlExcep2) {
-            sqlExcep2.getMessage();
+
+        } catch (SQLException e) {
+            // CORRECCIÓN: Mostrar el error completo
+            System.err.println("❌ Error en insertEntity: " + e.getMessage());
+            e.printStackTrace();
+            throw e; // Re-lanzar para que el servicio lo capture
         }
     }
 
@@ -72,11 +103,11 @@ public class DaoClue implements DaoInterface<Clue>{
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
                 return new Clue(rs.getString("name"),
-                                rs.getString("description"),
-                                Theme.valueOf(rs.getString("theme").toLowerCase()),
-                                rs.getInt("difficulty-points"),
-                                rs.getBoolean("is-important"),
-                                rs.getBoolean("is-solved"));
+                        rs.getString("description"),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        rs.getInt("difficulty-points"),
+                        rs.getBoolean("is-important"),
+                        rs.getBoolean("is-solved"));
             }
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return null;
@@ -100,7 +131,7 @@ public class DaoClue implements DaoInterface<Clue>{
 
     @Override
     public void deleteEntity(long entityId) throws Exception {
-        String sql = "DELETE FROM clues WHERE id = ?";
+        String sql = "DELETE FROM \"clue\" WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
             pstmt.executeUpdate();
@@ -111,19 +142,35 @@ public class DaoClue implements DaoInterface<Clue>{
 
     @Override
     public List<Clue> readAllEntities() throws Exception {
-        String sql = "SELECT * FROM clues";
+        String sql = "SELECT * FROM \"clue\"";
         List<Clue> clues = new ArrayList<>();
-        try(PreparedStatement pstmt = connectionDB.prepareStatement(sql);
-                ResultSet rs = pstmt.executeQuery()) {
+
+        int id = 0;
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
             while (rs.next()) {
-                clues.add(new Clue(rs.getString("name"),
-                        rs.getString("description"),
-                        Theme.valueOf(rs.getString("theme").toLowerCase()),
-                        rs.getInt("difficulty-points"),
-                        rs.getBoolean("is-important"),
-                        rs.getBoolean("is-solved")));
+                id = rs.getInt("ID");
+                Clue clue = new Clue(
+                        rs.getString("NAME"),
+                        rs.getString("DESCRIPTION"),
+                        Theme.valueOf(rs.getString("THEME").toUpperCase()),
+                        rs.getInt("DIFFICULTYPOINTS"),
+                        rs.getBoolean("ISIMPORTANT"),
+                        rs.getBoolean("ISSOLVED")
+                );
+                clue.setIdClue(id);
+                clues.add(clue);
+
             }
-        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (Clue clue : clues) {
+            System.out.println(clue);
+        }
+
         return clues;
     }
 }

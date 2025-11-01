@@ -1,7 +1,9 @@
 package servicelayer;
 
 import daomodel.DaoItem;
+import dtomodel.ClueDTO;
 import dtomodel.ItemDTO;
+import model.Clue;
 import model.Item;
 
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ public class ItemService {
         return daoItem.duplicate(item);
     }
 
-    public void addClue(Item item){
+    public void addItem(Item item){
         try{
             if(!item.isEmpty()||!searchDuplicates(item)){
                 daoItem.insertEntity(item);}
@@ -28,7 +30,7 @@ public class ItemService {
         }
 
     }
-    public void updateClue(Item item){
+    public void updateItem(Item item){
         try{
             if(!item.isEmpty()||searchDuplicates(item)){
                 daoItem.updateEntity(item.getIdItem(),item);}

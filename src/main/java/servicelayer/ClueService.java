@@ -3,6 +3,9 @@ package servicelayer;
 import daomodel.DaoClue;
 import dtomodel.ClueDTO;
 import model.Clue;
+
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +20,15 @@ public class ClueService{
     }
 
     public void addClue(Clue clue){
-       try{
-           if(!clue.isEmpty()||!searchDuplicates(clue)){
-           clueDAO.insertEntity(clue);}
-           else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
-       }
-       catch(Exception sqle1){
-           System.err.println(sqle1.getMessage());
-           System.out.println("The clue was not added correctly, please try again with the correct format");
-       }
+        try{
+            if(!clue.isEmpty()||!searchDuplicates(clue)){
+                clueDAO.insertEntity(clue);}
+            else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
+        }
+        catch(Exception sqle1){
+            System.err.println(sqle1.getMessage());
+            System.out.println("The clue was not added correctly, please try again with the correct format");
+        }
 
     }
     public void updateClue(Clue clue){
@@ -59,10 +62,17 @@ public class ClueService{
         }
         return cluesDTO;
     }
+
+    public void deleteClueById(long id) throws Exception {
+            clueDAO.deleteEntity(id);
+    }
+
+}
+/*
+    }
     public ClueDTO getClue(Long id) throws Exception {
         final Clue clue = clueDAO.readEntity(id);
 
         return new ClueDTO(clue.getName(),clue.getDescription(),clue.getDifficultyPoints(),clue.getIsSolved());
     }
-
-}
+*/
