@@ -4,8 +4,7 @@ import model.SubscribersManager;
 public class Main {
 
     public static void main(String[] args) {
-        EscapeRoomManager escapeRoomManager = EscapeRoomManager.getInstance();
-        SubscribersManager subscribersManager = new SubscribersManager(escapeRoomManager);
+        SubscribersManager subscribersManager = new SubscribersManager(EscapeRoomManager.getInstance());
         RunApp.run();
     }
 }

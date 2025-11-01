@@ -1,10 +1,11 @@
-import model.CreateManageDeleteERMenu;
+import menus.CreateManageDeleteERMenu;
 
 public class RunApp {
 
     public static void run(){
 
-        CreateManageDeleteERMenu.showInitialScreen();
-        CreateManageDeleteERMenu.executeMenuOption();
+        CreateManageDeleteERMenu.showWelcomeMessage();
+        CreateManageDeleteERMenu.showMainMenu();
+        CreateManageDeleteERMenu.executeMainMenuOption();
     }
 }
