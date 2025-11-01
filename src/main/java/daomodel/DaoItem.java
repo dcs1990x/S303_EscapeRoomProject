@@ -1,40 +1,38 @@
 package daomodel;
 
+import database.DatabaseManagerTest;
 import model.Item;
 import model.Theme;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DaoItem implements DaoInterface<Item>{
     Connection connectionDB;
 
     public void DaoItem(){
-       try{
-           this.connectionDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombre_base_de_datos", "Pol_DB", "Aleluia");
-       } catch(SQLException e1){e1.getMessage();}}
+        try{
+            this.connectionDB = DatabaseManagerTest.getConnection();
+        } catch(SQLException e1){e1.getMessage();}}
 
     @Override
     public void insertEntity(Item entity) throws Exception {
-        //Forma 1
-        try {
-            String sql_Insert = "INSERT INTO items (name, description, theme, price, is-important) VALUES(" + entity.getName() + ", " + entity.getDescription() + ", " + entity.getTheme() + ", " + entity.getPrice() + ", " + entity.getIsImportant() + ");";
-            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert);
-            sqlToInsert.executeUpdate();
-        } catch (SQLDataException sqlExcep1) {
-            sqlExcep1.getMessage();
-        }
-        // Forma 2
         try {
             String sql_Insert2 = "INSERT INTO items (name, description, theme, price, is-important) VALUES(?,?,?,?,?);";
-            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2);
+            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setString(2, entity.getDescription());
             sqlToInsert.setString(3, entity.getTheme().getDescription());
             sqlToInsert.setDouble(4, entity.getPrice());
             sqlToInsert.setBoolean(5, entity.getIsImportant());
             sqlToInsert.executeUpdate();
+            try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
+                if (rs.next()) {
+                    entity.setIdItem(rs.getInt(1));
+                }
+            }
         } catch (SQLException sqlExcep2) {
             sqlExcep2.getMessage();
         }

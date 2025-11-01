@@ -6,6 +6,7 @@ import static model.Difficulty.*;
 
 public class Player implements NotifiedPlayer{
 
+    private int idPlayer;
     private String name;
     private boolean madeReservation;
     private ArrayList<?> playerInventory;
@@ -16,7 +17,13 @@ public class Player implements NotifiedPlayer{
         this.madeReservation = madeReservation;
         this.playerInventory = new ArrayList<>();
     }
+    public Player(String name, boolean madeReservation,int score){
+        this.name = name;
+        this.madeReservation = madeReservation;
+        this.score = score;
+    }
 
+    public int getIdPlayer(){return this.idPlayer;}
     public String getName(){
         return this.name;
     }
@@ -30,10 +37,12 @@ public class Player implements NotifiedPlayer{
             System.out.println(item);
         }
     }
-
     public int getScore(){
         return this.score;
     }
+
+
+    public void setIdPlayer(int id){this.idPlayer = id;}
 
     public void setName(String name){
         this.name = name;

@@ -2,6 +2,7 @@ package model;
 
 public class Clue {
 
+    private int idClue;
     private String name, description;
     private Theme theme;
     private int difficultyPoints;
@@ -17,6 +18,7 @@ public class Clue {
         this.isSolved = isSolved;
     }
 
+    public int getIdClue(){return this.idClue;}
     public String getName(){return this.name;}
     public String getDescription(){return this.description;}
     public Theme getTheme(){return this.theme;}
@@ -24,6 +26,7 @@ public class Clue {
     public boolean getIsImportant(){return this.isImportant;}
     public boolean getIsSolved(){return this.isSolved;}
 
+    public void setIdClue(int id){this.idClue = id;}
     public void setName(String name){this.name = name;}
     public void setDescription(String description){this.description = description;}
     public void setTheme(Theme theme){this.theme = theme;}

@@ -1,25 +1,26 @@
 package daomodel;
 
+import database.DatabaseManagerTest;
 import model.Clue;
 import model.Theme;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DaoClue implements DaoInterface<Clue>{
     Connection connectionDB;
 
     public void DaoClue(){
         try{
-            this.connectionDB = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombre_base_de_datos", "Pol_DB", "Aleluia");
+            this.connectionDB = DatabaseManagerTest.getConnection();
         } catch(SQLException e1){e1.getMessage();}}
 
     @Override
     public void insertEntity(Clue entity) throws Exception {
         try {
             String sql_Insert2 = "INSERT INTO clues (name, description, theme, difficultyPoints, isImportant, isSolved) VALUES(?,?,?,?,?,?);";
-            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2);
+            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2,Statement.RETURN_GENERATED_KEYS);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setString(2, entity.getDescription());
             sqlToInsert.setString(3, entity.getTheme().getDescription());
@@ -27,6 +28,11 @@ public class DaoClue implements DaoInterface<Clue>{
             sqlToInsert.setBoolean(5, entity.getIsImportant());
             sqlToInsert.setBoolean(6, entity.getIsSolved());
             sqlToInsert.executeUpdate();
+            try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
+                if (rs.next()) {
+                    entity.setIdClue(rs.getInt(1));
+                }
+            }
         } catch (SQLException sqlExcep2) {
             sqlExcep2.getMessage();
         }
@@ -62,6 +68,7 @@ public class DaoClue implements DaoInterface<Clue>{
             pstmt.setBoolean(6, entity.getIsSolved());
             pstmt.setLong(7, entityId);
             pstmt.executeUpdate();
+
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
     }
 
@@ -72,14 +79,14 @@ public class DaoClue implements DaoInterface<Clue>{
             pstmt.setLong(1, entityId);
             pstmt.executeUpdate();
             System.out.println("The deletion was completed successfully. \n");
+
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
     }
 
     @Override
     public List<Clue> readAllEntities() throws Exception {
         String sql = "SELECT * FROM clues";
-        List<Clue> clues
-                = new ArrayList<>();
+        List<Clue> clues = new ArrayList<>();
         try(PreparedStatement pstmt = connectionDB.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {

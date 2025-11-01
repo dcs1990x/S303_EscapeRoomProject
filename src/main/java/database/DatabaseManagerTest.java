@@ -2,10 +2,11 @@ package database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DatabaseManagerTest {
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
 
         // 1. Leemos las variables de entorno
         String dbUrl = System.getenv("DB_URL");
