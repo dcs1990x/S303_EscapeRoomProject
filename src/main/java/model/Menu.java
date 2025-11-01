@@ -24,6 +24,11 @@ public class Menu {
 
     public static void executeMenuOption(){
         byte option = -1;
+
+
+        EscapeRoomManager escapeRoomManager = EscapeRoomManager.getInstance();//Faltaba instanciar el manager.
+
+
         while (option != 0){
             try{
                 option = scanner.nextByte();
@@ -38,7 +43,7 @@ public class Menu {
                 } else if (option == 3){
                     Optional<EscapeRoom> escapeRoomToDelete = escapeRoomManager.getEscapeRoomByConsole();
                     escapeRoomManager.deleteEscapeRoom(escapeRoomToDelete);
-                    System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" has been deleted successfully. ");
+                    System.out.println("The escape room \"" +/* escapeRoomToDelete.getEscapeRoomName() +*/ "\" has been deleted successfully. ");
                 } else if (option == 0){
                     System.out.println("\nYou exited the programme. \n");
                     return;

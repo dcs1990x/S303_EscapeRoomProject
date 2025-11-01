@@ -2,10 +2,13 @@ package model;
 
 public class Item {
 
+    private int idItem;
     private String name, description;
     private Theme theme;
     private double price;
     private boolean isImportant;
+
+    public Item(){}
 
     public Item(String name, String description, Theme theme, double price, boolean isImportant){
         this.name = name;
@@ -25,4 +28,17 @@ public class Item {
     public void setDescription(String description){this.description = description;}
     public void setTheme(Theme theme){this.theme = theme;}
     public void setPrice(double price){this.price = price;}
+    public void setIdItem(int id){this.idItem = id;}
+
+
+    public boolean isEmpty() {
+        if (this.name == null || this.description == null || this.theme == null){
+            return true;
+        }
+        return false;
+    }
+
+    public long getIdItem() {
+        return 0;
+    }
 }

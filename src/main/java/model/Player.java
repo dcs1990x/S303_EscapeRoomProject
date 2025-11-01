@@ -6,12 +6,15 @@ import static model.Difficulty.*;
 
 public class Player implements NotifiedPlayer{
 
+    private int idPlayer;
     private String name;
     private boolean madeReservation;
     private ArrayList<?> playerInventory;
     private int score;
 
-    public Player(String name, boolean madeReservation, ArrayList<?> playerInventory){
+    public Player(){}
+
+    public Player(String name, boolean madeReservation, int score){
         this.name = name;
         this.madeReservation = madeReservation;
         this.playerInventory = new ArrayList<>();
@@ -19,6 +22,10 @@ public class Player implements NotifiedPlayer{
 
     public String getName(){
         return this.name;
+    }
+
+    public int getIdPlayer(){
+        return this.idPlayer;
     }
 
     public boolean hasMadeReservation(){
@@ -42,7 +49,9 @@ public class Player implements NotifiedPlayer{
     public void setMadeReservation(boolean madeReservation){
         this.madeReservation = madeReservation;
     }
-
+    public void setIdPlayer(int id){
+        this.idPlayer = id;
+    }
     public void setScore(Room room){
         try{
             if (room.getDifficulty() == VERY_EASY){

@@ -1,6 +1,7 @@
 package daomodel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DaoInterface<T> {
     void insertEntity(T entity) throws Exception;

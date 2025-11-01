@@ -18,6 +18,6 @@ public class EscapeRoom {
     }
 
     public List<Room> getRoomsList(){
-        return List.copyOf(rooms);
+        return rooms;
     }
 }

@@ -2,11 +2,14 @@ package model;
 
 public class Clue {
 
+    private int idClue;
     private String name, description;
     private Theme theme;
     private int difficultyPoints;
     private boolean isImportant;
     private boolean isSolved;
+
+    public Clue(){}
 
     public Clue(String name, String description, Theme theme, int difficultyPoints, boolean isImportant, boolean isSolved){
         this.name = name;
@@ -17,6 +20,7 @@ public class Clue {
         this.isSolved = isSolved;
     }
 
+    public int getIdClue(){return this.idClue;}
     public String getName(){return this.name;}
     public String getDescription(){return this.description;}
     public Theme getTheme(){return this.theme;}
@@ -24,6 +28,7 @@ public class Clue {
     public boolean getIsImportant(){return this.isImportant;}
     public boolean getIsSolved(){return this.isSolved;}
 
+    public void setIdClue(int id){this.idClue = id;}
     public void setName(String name){this.name = name;}
     public void setDescription(String description){this.description = description;}
     public void setTheme(Theme theme){this.theme = theme;}
@@ -35,5 +40,19 @@ public class Clue {
         } else {
             this.isSolved = false;
         }
+    }
+    public boolean isEmpty(){
+        return name == null && description == null && theme == null && difficultyPoints == 0 && isImportant == false && isSolved == false;
+    }
+
+    @Override
+    public String toString(){
+        return "id= " + idClue + ",\n" +
+                "name= " + name + ",\n" +
+                "theme " + theme.toString() + ",\n" +
+                ", description='" + description + ",\n" +
+                ", difficultyPoins=" + difficultyPoints +",\n"+
+                "isSolved=" + isSolved +",\n"+
+                '}';
     }
 }
