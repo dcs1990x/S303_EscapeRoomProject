@@ -1,4 +1,8 @@
-package model;
+package menu;
+
+import model.Clue;
+import model.Item;
+import model.Room;
 
 import java.util.List;
 

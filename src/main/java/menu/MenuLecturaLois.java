@@ -1,10 +1,8 @@
-package model;
+package menu;
 
 import servicelayer.ClueService;
 import servicelayer.ItemService;
 import servicelayer.RoomService;
-
-import java.util.List;
 
 public class MenuLecturaLois {
     RoomService roomService = new RoomService();

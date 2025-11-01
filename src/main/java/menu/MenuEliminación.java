@@ -1,11 +1,7 @@
-package model;
+package menu;
 
-import model.MenuLecturaLois;
+import model.EscapeRoomManager;
 import servicelayer.ClueService;
-import servicelayer.ItemService;
-import java.rmi.NoSuchObjectException;
-import java.sql.SQLException;
-import java.util.List;
 
 public class MenuEliminación {
     ClueService clueService = new ClueService();

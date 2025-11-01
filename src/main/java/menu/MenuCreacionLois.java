@@ -1,5 +1,8 @@
-package model;
+package menu;
 
+import model.Clue;
+import model.Item;
+import model.Theme;
 import servicelayer.ClueService;
 import servicelayer.ItemService;
 
