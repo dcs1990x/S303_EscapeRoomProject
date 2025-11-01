@@ -3,8 +3,6 @@ package servicelayer;
 import daomodel.DaoClue;
 import dtomodel.ClueDTO;
 import model.Clue;
-
-
 import java.util.ArrayList;
 import java.util.List;
 

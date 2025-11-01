@@ -1,9 +1,7 @@
 package servicelayer;
 
 import daomodel.DaoItem;
-import dtomodel.ClueDTO;
 import dtomodel.ItemDTO;
-import model.Clue;
 import model.Item;
 
 import java.util.ArrayList;

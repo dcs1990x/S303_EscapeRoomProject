@@ -1,7 +1,6 @@
 package servicelayer;
 
 import daomodel.DaoPlayer;
-import dtomodel.ItemDTO;
 import dtomodel.PlayerDTO;
 import model.Player;
 

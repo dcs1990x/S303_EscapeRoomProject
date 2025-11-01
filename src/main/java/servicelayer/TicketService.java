@@ -1,11 +1,9 @@
 package servicelayer;
 
-import daomodel.DaoPlayer;
+
 import daomodel.DaoTicket;
 import dtomodel.TicketDTO;
 import model.Ticket;
-import model.Ticket;
-
 import java.util.ArrayList;
 import java.util.List;
 
