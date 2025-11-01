@@ -5,10 +5,13 @@ import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class Menu {
+import static model.ManageERMenu.manageEscapeRoom;
+
+public class CreateManageDeleteERMenu {
 
     private static final Scanner scanner = new Scanner(System.in);
     private static EscapeRoomManager escapeRoomManager;
+    private static ManageERMenu manageERMenu;
 
     public static void showInitialScreen(){
         System.out.println("\n<========WELCOME TO THE ESCAPE ROOM MANAGER APP========>\n");
@@ -34,11 +37,12 @@ public class Menu {
                     System.out.println("The escape room \"" + escapeRoom.getEscapeRoomName() + "\" has been created successfully. ");
                 } else if (option == 2){
                     escapeRoomManager.getEscapeRoomByConsole();
-                    //manageEscapeRoom();
+                    manageEscapeRoom();
                 } else if (option == 3){
                     Optional<EscapeRoom> escapeRoomToDelete = escapeRoomManager.getEscapeRoomByConsole();
+                    EscapeRoom room = escapeRoomToDelete.get();
                     escapeRoomManager.deleteEscapeRoom(escapeRoomToDelete);
-                    System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" has been deleted successfully. ");
+                    System.out.println("The escape room \"" + room.getEscapeRoomName() + "\" has been deleted successfully. ");
                 } else if (option == 0){
                     System.out.println("\nYou exited the programme. \n");
                     return;

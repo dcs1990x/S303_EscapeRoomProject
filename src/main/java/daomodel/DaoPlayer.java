@@ -1,4 +1,4 @@
-package daomodel;
+/*package daomodel;
 
 import database.DatabaseManagerTest;
 import model.Clue;
@@ -85,4 +85,4 @@ public class DaoPlayer implements DaoInterface<Player> {
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return players;
     }
-}
+}*/
