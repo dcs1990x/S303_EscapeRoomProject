@@ -16,6 +16,32 @@ public class DaoClue implements DaoInterface<Clue>{
             this.connectionDB = DatabaseManagerTest.getConnection();
         } catch(SQLException e1){e1.getMessage();}}
 
+    public boolean duplicate(Clue clue){
+        String sql = "SELECT * FROM clues WHERE id= ? , name = ?, description = ?, theme =?, difficulty-points = ?, is-important = ?, is-solved = ?";
+        Clue clueObtained = new Clue();
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setLong(1, clue.getIdClue());
+            pstmt.setString(2,clue.getName());
+            pstmt.setString(3,clue.getDescription());
+            pstmt.setString(4,clue.getTheme().getDescription());
+            pstmt.setInt(5,clue.getDifficultyPoints());
+            pstmt.setBoolean(6, clue.getIsImportant());
+            pstmt.setBoolean(7, clue.getIsSolved());
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                clueObtained = new Clue(rs.getString("name"),
+                        rs.getString("description"),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        rs.getInt("difficulty-points"),
+                        rs.getBoolean("is-important"),
+                        rs.getBoolean("is-solved"));
+            }
+
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        return clueObtained.equals(clue);
+    }
+
     @Override
     public void insertEntity(Clue entity) throws Exception {
         try {

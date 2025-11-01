@@ -9,6 +9,8 @@ public class Clue {
     private boolean isImportant;
     private boolean isSolved;
 
+    public Clue(){}
+
     public Clue(String name, String description, Theme theme, int difficultyPoints, boolean isImportant, boolean isSolved){
         this.name = name;
         this.description = description;
@@ -38,5 +40,8 @@ public class Clue {
         } else {
             this.isSolved = false;
         }
+    }
+    public boolean isEmpty(){
+        return name == null && description == null && theme == null && difficultyPoints == 0 && isImportant == false && isSolved == false;
     }
 }
