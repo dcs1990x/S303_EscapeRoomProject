@@ -102,4 +102,7 @@ public class Player implements NotifiedPlayer{
                 "Name: " + getName() + System.lineSeparator() +
                 "Made reservation? " + hasMadeReservation() + System.lineSeparator();
     }
+    public boolean isEmpty(){
+        return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
+    }
 }

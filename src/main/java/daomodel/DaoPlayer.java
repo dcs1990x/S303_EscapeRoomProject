@@ -1,4 +1,4 @@
-/*package daomodel;
+package daomodel;
 
 import database.DatabaseManagerTest;
 import model.Clue;
@@ -8,7 +8,7 @@ import model.Theme;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class DaoPlayer implements DaoInterface<Player> {
     Connection connectionDB;
@@ -85,4 +85,4 @@ public class DaoPlayer implements DaoInterface<Player> {
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return players;
     }
-}*/
+}
