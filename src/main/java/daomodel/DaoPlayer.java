@@ -2,6 +2,7 @@ package daomodel;
 
 import database.DatabaseManagerTest;
 import model.Clue;
+import model.Item;
 import model.Player;
 import model.Theme;
 
@@ -12,10 +13,30 @@ import java.util.List;
 
 public class DaoPlayer implements DaoInterface<Player> {
     Connection connectionDB;
-    public void DaoItem(){
+    public void DaoPlayer(){
         try{
             this.connectionDB = DatabaseManagerTest.getConnection();
         } catch(SQLException e1){e1.getMessage();}}
+    public boolean duplicate(Player player){
+        String sql = "SELECT * FROM players WHERE id= ? , name = ?, made-reservation = ?, score = ? ";
+        Player playerObtained = new Player();
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setLong(1, player.getIdPlayer());
+            pstmt.setString(2,player.getName());
+            pstmt.setBoolean(3, player.hasMadeReservation());
+           pstmt.setDouble(4,player.getScore());
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                playerObtained = new Player(rs.getInt("id"),rs.getString("name"),
+                        rs.getBoolean("made-reservation"),
+                        rs.getInt("score"));
+            }
+
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        return playerObtained.equals(player);
+    }
     @Override
     public void insertEntity(Player entity) throws Exception {
         try {

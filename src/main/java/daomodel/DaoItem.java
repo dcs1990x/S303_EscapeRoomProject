@@ -19,7 +19,7 @@ public class DaoItem implements DaoInterface<Item>{
         } catch(SQLException e1){e1.getMessage();}}
 
     public boolean duplicate(Item item){
-        String sql = "SELECT * FROM clues WHERE id= ? , name = ?, description = ?, theme =?, price = ?, is-important = ?";
+        String sql = "SELECT * FROM items WHERE id= ? , name = ?, description = ?, theme =?, price = ?, is-important = ?";
         Item itemObtained = new Item();
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, item.getIdItem());

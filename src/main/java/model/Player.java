@@ -22,6 +22,14 @@ public class Player implements NotifiedPlayer{
         this.madeReservation = madeReservation;
         this.score = score;
     }
+    public Player(int id, String name, boolean madeReservation,int score){
+        this.idPlayer = id;
+        this.name = name;
+        this.madeReservation = madeReservation;
+        this.score = score;
+    }
+
+    public Player() {}
 
     public int getIdPlayer(){return this.idPlayer;}
     public String getName(){
