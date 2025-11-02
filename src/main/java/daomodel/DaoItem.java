@@ -1,19 +1,19 @@
 package daomodel;
 
 import database.DatabaseManagerTest;
-import model.Clue;
+
 import model.Item;
 import model.Theme;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class DaoItem implements DaoInterface<Item>{
     Connection connectionDB;
 
-    public void DaoItem(){
+    public DaoItem(){
             this.connectionDB = DatabaseManagerTest.getConnection();
 }
 
@@ -42,7 +42,7 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void insertEntity(Item entity) throws Exception {
+    public void insertEntity(Item entity) {
         try {
             String sql_Insert2 = "INSERT INTO items (name, description, theme, price, is-important) VALUES(?,?,?,?,?);";
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
@@ -63,7 +63,7 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public Item readEntity(long entityId) throws Exception {
+    public Item readEntity(long entityId) {
         String sql = "SELECT * FROM items WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
@@ -80,7 +80,7 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void updateEntity(long entityId, Item entity) throws Exception {
+    public void updateEntity(long entityId, Item entity) {
         String sql = "UPDATE items SET name = ?, description = ?, theme = ?, price = ?, is-important = ? WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1, entity.getName());
@@ -94,7 +94,7 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void deleteEntity(long entityId) throws Exception {
+    public void deleteEntity(long entityId) {
         String sql = "DELETE FROM items WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
@@ -104,7 +104,7 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public List readAllEntities() throws Exception {
+    public List<Item> readAllEntities() throws Exception {
         String sql = "SELECT * FROM items";
         List<Item> items = new ArrayList<>();
         try (

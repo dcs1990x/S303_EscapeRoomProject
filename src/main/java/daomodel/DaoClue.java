@@ -6,7 +6,7 @@ import model.Theme;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+
 
 public class DaoClue implements DaoInterface<Clue>{
     Connection connectionDB;
@@ -96,7 +96,7 @@ public class DaoClue implements DaoInterface<Clue>{
     }
 
     @Override
-    public Clue readEntity(long entityId) throws Exception {
+    public Clue readEntity(long entityId){
         String sql = "SELECT * FROM clues WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
@@ -130,7 +130,7 @@ public class DaoClue implements DaoInterface<Clue>{
     }
 
     @Override
-    public void deleteEntity(long entityId) throws Exception {
+    public void deleteEntity(long entityId) {
         String sql = "DELETE FROM \"clue\" WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
@@ -145,7 +145,7 @@ public class DaoClue implements DaoInterface<Clue>{
         String sql = "SELECT * FROM \"clue\"";
         List<Clue> clues = new ArrayList<>();
 
-        int id = 0;
+        int id;
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 

@@ -1,11 +1,8 @@
 package daomodel;
 
 import database.DatabaseManagerTest;
-import model.Clue;
-import model.Item;
-import model.Player;
-import model.Theme;
 
+import model.Player;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +10,7 @@ import java.util.List;
 
 public class DaoPlayer implements DaoInterface<Player> {
     Connection connectionDB;
-    public void DaoPlayer(){
+    public DaoPlayer(){
 
         this.connectionDB = DatabaseManagerTest.getConnection();
     }
@@ -41,7 +38,7 @@ public class DaoPlayer implements DaoInterface<Player> {
         return playerObtained.equals(player);
     }
     @Override
-    public void insertEntity(Player entity) throws Exception {
+    public void insertEntity(Player entity) {
         try {
             String sql_Insert2 = "INSERT INTO players (name,made-reservation,score) VALUES(?,?,?);";
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
@@ -60,7 +57,7 @@ public class DaoPlayer implements DaoInterface<Player> {
     }
 
     @Override
-    public Player readEntity(long entityId) throws Exception {
+    public Player readEntity(long entityId) {
         String sql = "SELECT * FROM players WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
@@ -75,7 +72,7 @@ public class DaoPlayer implements DaoInterface<Player> {
     }
 
     @Override
-    public void updateEntity(long entityId, Player entity) throws Exception {
+    public void updateEntity(long entityId, Player entity) {
         String sql = "UPDATE players SET name = ?, made-reservation = ?, score = ? WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1, entity.getName());
@@ -86,7 +83,7 @@ public class DaoPlayer implements DaoInterface<Player> {
     }
 
     @Override
-    public void deleteEntity(long entityId) throws Exception {
+    public void deleteEntity(long entityId) {
         String sql = "DELETE FROM players WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);

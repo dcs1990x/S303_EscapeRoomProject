@@ -10,25 +10,25 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoRoom implements DaoInterface{
+public class DaoRoom implements DaoInterface<Room>{
     Connection connectionDB;
 
-    public void DaoRoom(){
+    public DaoRoom(){
             this.connectionDB = DatabaseManagerTest.getConnection();
     }
 
     @Override
-    public void insertEntity(Object entity) throws Exception {
+    public void insertEntity(Room entity) throws Exception {
 
     }
 
     @Override
-    public Object readEntity(long entityId) throws Exception {
+    public Room readEntity(long entityId) throws Exception {
         return null;
     }
 
     @Override
-    public void updateEntity(long entityId, Object entity) throws Exception {
+    public void updateEntity(long entityId, Room entity) throws Exception {
 
     }
 

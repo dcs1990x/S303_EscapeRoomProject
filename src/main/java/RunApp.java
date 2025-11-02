@@ -1,10 +1,10 @@
-<<<<<<< Updated upstream
+
 import menus.CreateManageDeleteERMenu;
 import model.RoomBuilder;
-=======
+
 import menu.MenuCreacionLois;
 import menu.MenuEliminación;
->>>>>>> Stashed changes
+
 
 public class RunApp {
 
