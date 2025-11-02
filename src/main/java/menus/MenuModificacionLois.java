@@ -35,6 +35,8 @@ public class MenuModificacionLois {
     }
 
     private void modifyItem() {
+        lectura.readRooms();// vemos que habitaciones tenemos para saber que queremos modificar
+
         int id = 4;
         Item item = new Item("los", "sdfsdf", Theme.SPACE, 123, true);
         itemService.updateItem(item,id);

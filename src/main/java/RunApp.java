@@ -1,34 +1,16 @@
-import menus.MenuModificacionLois;
+import menus.CreateManageDeleteERMenu;
+import model.RoomBuilder;
 
 public class RunApp {
 
-    public static void run(){
+    private CreateManageDeleteERMenu createManageDeleteERMenu = new CreateManageDeleteERMenu();
 
-      //  DatabaseManagerTest.getConnection();
+    public void run(){
+        RoomBuilder roomBuilder = new RoomBuilder();
+        createManageDeleteERMenu.setRoomBuilder(roomBuilder);
 
-    //MenuCreacionLois menuCreacionLois = new MenuCreacionLois();
-    //menuCreacionLois.logicaMenuCreacion();
-
-       MenuModificacionLois ml = new MenuModificacionLois();
-       ml.logicaMenuModificacionLois();
-
-
-//        MenuLecturaLois menuLecturaLois = new MenuLecturaLois();
-  //      menuLecturaLois.logicaMenuLectura();
-
-
-
-    //MenuEliminación menuEliminación = new MenuEliminación();
-    //menuEliminación.logicaMenuEliminacion();
-
-
-
-
-
-        /*Menu.showInitialScreen();
-        Menu.showMainMenu();
-        Menu.executeMenuOption();
-         */
+        createManageDeleteERMenu.showWelcomeMessage();
+        createManageDeleteERMenu.showMainMenu();
+        createManageDeleteERMenu.executeMainMenuOption();
     }
-
 }

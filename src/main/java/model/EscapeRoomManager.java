@@ -1,19 +1,17 @@
 package model;
 
-import java.rmi.NoSuchObjectException;
+import menus.CreateManageDeleteERMenu;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Scanner;
 
 public class EscapeRoomManager {
 
     private static EscapeRoomManager instance;
-    private Menu menu;
-    private RoomBuilder roomBuilder;
+    private CreateManageDeleteERMenu menu = new CreateManageDeleteERMenu();
     private ArrayList<EscapeRoom> escapeRooms = new ArrayList<>();
     private Inventory inventory;
     private SubscribersManager subscribersManager;
-    private Scanner scanner = new Scanner(System.in);
 
     private EscapeRoomManager(){}
 
@@ -25,55 +23,41 @@ public class EscapeRoomManager {
     }
 
     public EscapeRoom createEscapeRoom(){
-        System.out.println("Please write the escape room's name: ");
-        String name = scanner.nextLine();
-        return new EscapeRoom(name);
+        String name = UserInput.readLine("\nPlease write the escape room's name: ");
+        EscapeRoom escapeRoom = new EscapeRoom(name);
+        escapeRooms.add(escapeRoom);
+        return escapeRoom;
     }
 
-    public Optional<EscapeRoom> getEscapeRoomByConsole() throws NoSuchObjectException {
-        System.out.println("These are the existing escape rooms: ");
-        System.out.println("\n" + instance.getEscapeRoomsList() + "\n");
-        System.out.println("Please type the escape room's name or type \"Return\" to go back. ");
-        String name = scanner.nextLine().trim();
-
-        if (name.equalsIgnoreCase("return")) {
-            return Optional.empty();
-        }
+    public Optional<EscapeRoom> getEscapeRoomByConsole() throws NoSuchElementException {
+        checkEmptyEscapeRoomList();
+        System.out.println("These are the existing escape rooms: \n");
+        System.out.println(getEscapeRoomsList());
+        String name = UserInput.readLine("\nPlease type the escape room's name or type \"Return\" to go back: ");
 
         for (EscapeRoom escapeRoom : escapeRooms) {
+            if (name.equalsIgnoreCase("return")) {
+                return Optional.empty();
+            }
             if (name.equalsIgnoreCase(escapeRoom.getEscapeRoomName())){
                 return Optional.of(escapeRoom);
             }
         }
-        System.out.println("The name entered does not correspond to an existing escape room.");
-        return Optional.empty();
+        throw new NoSuchElementException("No escape room found with the name \"" + name + "\".");
     }
 
-    public void manageEscapeRoom() throws NoSuchObjectException{
-        checkEmptyEscapeRoomList();
-        System.out.println("What do you want to do?");
-        System.out.println("1. CREATE A ROOM" + System.lineSeparator() +
-                "2. MODIFY ROOM" + System.lineSeparator() +
-                "3. DELETE ROOM");
-        byte option = scanner.nextByte();
-        scanner.nextLine();
-
-
-    }
-
-    public void deleteEscapeRoom(Optional<EscapeRoom> escapeRoomToDelete) throws NoSuchObjectException{
+    public void deleteEscapeRoom(Optional<EscapeRoom> escapeRoomToDelete) throws NoSuchElementException {
         checkEmptyEscapeRoomList();
         escapeRooms.remove(escapeRoomToDelete);
     }
 
-    public ArrayList<EscapeRoom> getEscapeRoomsList() throws NoSuchObjectException {
-        checkEmptyEscapeRoomList();
+    public ArrayList<EscapeRoom> getEscapeRoomsList() {
         return escapeRooms;
     }
 
-    public void checkEmptyEscapeRoomList() throws NoSuchObjectException{
-        if (getEscapeRoomsList() == null || getEscapeRoomsList().isEmpty()){
-            throw new NoSuchObjectException("There are no previously created escape rooms. ");
+    public void checkEmptyEscapeRoomList() throws NoSuchElementException {
+        if (escapeRooms == null || escapeRooms.isEmpty()){
+            throw new NoSuchElementException("There are no previously created escape rooms. ");
         }
     }
 
