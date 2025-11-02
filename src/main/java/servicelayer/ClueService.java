@@ -31,10 +31,10 @@ public class ClueService{
         }
 
     }
-    public void updateClue(Clue clue){
+    public void updateClue(Clue clue, long id){
         try{
             if(!clue.isEmpty()||searchDuplicates(clue)){
-                clueDAO.updateEntity(clue.getIdClue(),clue);}
+                clueDAO.updateEntity(id, clue);}
             else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){

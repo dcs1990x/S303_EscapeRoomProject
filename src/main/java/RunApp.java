@@ -1,26 +1,25 @@
-import database.DatabaseManagerTest;
-import model.Menu;
-import model.MenuCreacionLois;
-import model.MenuEliminación;
-import model.MenuLecturaLois;
+import menus.MenuModificacionLois;
 
 public class RunApp {
 
     public static void run(){
 
       //  DatabaseManagerTest.getConnection();
-    MenuCreacionLois menuCreacionLois = new MenuCreacionLois();
-    menuCreacionLois.logicaMenuCreacion();
+
+    //MenuCreacionLois menuCreacionLois = new MenuCreacionLois();
+    //menuCreacionLois.logicaMenuCreacion();
+
+       MenuModificacionLois ml = new MenuModificacionLois();
+       ml.logicaMenuModificacionLois();
 
 
-        //MenuLecturaLois menuLecturaLois = new MenuLecturaLois();
-        //menuLecturaLois.logicaMenuLectura();
+//        MenuLecturaLois menuLecturaLois = new MenuLecturaLois();
+  //      menuLecturaLois.logicaMenuLectura();
 
 
 
-        MenuEliminación menuEliminación = new MenuEliminación();
-        menuEliminación.logicaMenuEliminacion();
-
+    //MenuEliminación menuEliminación = new MenuEliminación();
+    //menuEliminación.logicaMenuEliminacion();
 
 
 

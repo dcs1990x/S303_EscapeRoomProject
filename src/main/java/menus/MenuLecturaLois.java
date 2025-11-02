@@ -1,10 +1,8 @@
-package model;
+package menus;
 
 import servicelayer.ClueService;
 import servicelayer.ItemService;
 import servicelayer.RoomService;
-
-import java.util.List;
 
 public class MenuLecturaLois {
     RoomService roomService = new RoomService();
@@ -18,8 +16,9 @@ public class MenuLecturaLois {
 
        // readRooms(); //Nos da tanto los datos de la room como sus pistas y objetos asociados.
         //Read clues
-        readClue();
+       // readClue();
         //Read items.
+        readItems();
     }
 
     public void readRooms() {
@@ -41,7 +40,13 @@ public class MenuLecturaLois {
         //Conexión a service para leer todas las pistas.
     }
 
-    private void readItems() {
+    public void readItems() {
         //Conexión a service para leer todos los Items
+        try {
+            itemService.getItems();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //Conexión a service para leer todas las pistas.
     }
 }
