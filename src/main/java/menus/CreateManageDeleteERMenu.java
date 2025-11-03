@@ -46,7 +46,7 @@ public class CreateManageDeleteERMenu {
                     //Llamar a service Esaperoom para pasar a DB.
                     showMainMenu();
                 } else if (mainMenuOption == 2) {
-                    Optional<EscapeRoom> selectedEscapeRoom = null;
+                    Optional<EscapeRoom> selectedEscapeRoom;
                     selectedEscapeRoom = escapeRoomManager.getEscapeRoomByConsole();
                     //Mostrar escapeRoom.
 
@@ -56,6 +56,7 @@ public class CreateManageDeleteERMenu {
                     } else if (selectedEscapeRoom.isPresent()) {
                         modifyRoomsMenu();
                         manageERMenu.executeModifyRoomsMenuOption();
+                        //Aquí nos vamos a las opciones CRUD
                     } else {
                         throw new InputMismatchException();
                     }

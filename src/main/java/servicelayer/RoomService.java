@@ -14,7 +14,7 @@ public class RoomService {
     }
 
     public void insertRoom(Room room) throws Exception {
-        daoRoom.insertRoom(room);
+        daoRoom.insertEntity(room, 1);
     }
 
 

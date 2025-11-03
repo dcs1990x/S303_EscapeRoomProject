@@ -7,30 +7,54 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoRoom implements DaoInterface {
+public class DaoRoom implements DaoInterface<Room> {
     Connection connectionDB;
 
     public DaoRoom() {
         this.connectionDB = DatabaseManagerTest.getConnection();
     }
 
-    public void insertRoom(Object entity) throws Exception {
 
-    }
 
 
     @Override
-    public void insertEntity(Object entity, int id) throws Exception {
+    public void insertEntity(Room entity, int id) throws Exception {
+        //El Id será el ESCAPEROOM en que quiere meter el room.
+
+        // Verificar conexión
+        if (connectionDB == null) {
+            throw new SQLException("❌ Connection is null in insertEntity");
+        }
+        try {
+
+            String sql_Insert2 = "INSERT INTO \"room\" (id_escape_room, name, difficulty, price) VALUES (?, ?, ?, ?)";
+            PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
+            sqlToInsert.setInt(1, id);
+            sqlToInsert.setString(2, entity.getName());
+            sqlToInsert.setString(3, entity.getDifficulty().getDescription());
+            sqlToInsert.setDouble(4, entity.getPrice());
+            sqlToInsert.executeUpdate();
+
+            try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
+                if (rs.next()) {
+                    entity.setIdRoom(rs.getInt(1));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();  // muestra la excepción completa
+            System.err.println("❌ Error al insertar item: " + e.getMessage());
+        }
+
 
     }
 
     @Override
-    public Object readEntity(long entityId) throws Exception {
+    public Room readEntity(long entityId) throws Exception {
         return null;
     }
 
     @Override
-    public void updateEntity(long entityId, Object entity) throws Exception {
+    public void updateEntity(long entityId, Room entity) throws Exception {
 
     }
 
