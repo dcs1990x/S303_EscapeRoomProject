@@ -51,23 +51,21 @@ public class ItemMenu {
     }
 
     private void createItem() {
-        Item item = new Item("Item_1", "A key", Theme.SPACE, 23, true);
-        //Falta añadir la selección de sala por parte del user.
-        itemService.addItem(item);
-
-
+        Item item = new Item(UserInput.readLine("Ingrese nombre: "), UserInput.readLine("Ingrese descripcion: "),
+                Theme.SPACE, UserInput.readInt("Ingrese precio: "), true);
+        lectura.readRooms();
+        itemService.addItem(item, UserInput.readInt("Ingrese id de la habitación donde ingresará la pista"));
     }
 
     private void modifyItem() {
-        lectura.readRooms();// vemos que habitaciones tenemos para saber que queremos modificar
-
-        int id = 4;
-        Item item = new Item("los", "sdfsdf", Theme.SPACE, 123, true);
+        lectura.readRooms();
+        int id = UserInput.readInt("Seleccione la id del item a modificar: ");
+        Item item = new Item(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
+                Theme.SPACE, UserInput.readInt("Ingrese el nuevo precio"), true);
         itemService.updateItem(item,id);
     }
 
     public void readItems() {
-        //Conexión a service para leer todos los Items
         try {
             itemService.getItems();
         } catch (Exception e) {
@@ -76,12 +74,9 @@ public class ItemMenu {
     }
 
     private void deleteItem(){
-        //Mostramos todas los
-        lectura.readItems();
-
-        int id = 1; //aquí iría el scanner pidiendo que se elija la clave que quiere borrar.
+        readItems();
         try {
-            itemService.deleteItemById(id);
+            itemService.deleteItemById(UserInput.readInt("Selecciona la id del item a modificar: "));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

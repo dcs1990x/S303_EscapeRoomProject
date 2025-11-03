@@ -54,22 +54,23 @@ public class DaoClue implements DaoInterface<Clue>{
     }
 
     @Override
-    public void insertEntity(Clue entity) throws Exception {
+    public void insertEntity(Clue entity, int id_room) throws Exception {
         // Verificar conexión
         if (connectionDB == null) {
             throw new SQLException("❌ Connection is null in insertEntity");
         }
 
         // CORRECCIÓN: Usar los nombres correctos de columnas
-        String sql_Insert2 = "INSERT INTO \"clue\" (name, description, theme, difficultyPoints, isImportant, isSolved) VALUES(?,?,?,?,?,?);";
+        String sql_Insert2 = "INSERT INTO \"clue\" (id_room, name, description, theme, difficultyPoints, isImportant, isSolved) VALUES(?,?,?,?,?,?,?);";
 
         try (PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS)) {
-            sqlToInsert.setString(1, entity.getName());
-            sqlToInsert.setString(2, entity.getDescription());
-            sqlToInsert.setString(3, entity.getTheme().getDescription());
-            sqlToInsert.setInt(4, entity.getDifficultyPoints());
-            sqlToInsert.setBoolean(5, entity.getIsImportant());
-            sqlToInsert.setBoolean(6, entity.getIsSolved());
+            sqlToInsert.setInt(1, id_room);
+            sqlToInsert.setString(2, entity.getName());
+            sqlToInsert.setString(3, entity.getDescription());
+            sqlToInsert.setString(4, entity.getTheme().getDescription());
+            sqlToInsert.setInt(5, entity.getDifficultyPoints());
+            sqlToInsert.setBoolean(6, entity.getIsImportant());
+            sqlToInsert.setBoolean(7, entity.getIsSolved());
 
             int affectedRows = sqlToInsert.executeUpdate();
             System.out.println("✅ Filas insertadas: " + affectedRows);

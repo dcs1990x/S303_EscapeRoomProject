@@ -37,7 +37,6 @@ public class CreateManageDeleteERMenu {
     }
 
     public void executeMainMenuOption(){
-        Scanner sc = new Scanner(System.in);
         byte mainMenuOption = -1;
         while (mainMenuOption != 0) {
             try {
@@ -46,10 +45,12 @@ public class CreateManageDeleteERMenu {
                 if (mainMenuOption == 1) {
                     EscapeRoom escapeRoom = escapeRoomManager.createEscapeRoom();
                     System.out.println("The escape room \"" + escapeRoom.getEscapeRoomName() + "\" was created successfully. ");
+                    //Llamar a service Esaperoom para pasar a DB.
                     showMainMenu();
                 } else if (mainMenuOption == 2) {
                     Optional<EscapeRoom> selectedEscapeRoom = null;
                     selectedEscapeRoom = escapeRoomManager.getEscapeRoomByConsole();
+                    //Mostrar escapeRoom.
 
                     if (selectedEscapeRoom.isEmpty()) {
                         showMainMenu();
