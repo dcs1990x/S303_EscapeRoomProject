@@ -60,7 +60,7 @@ public class DaoItem implements DaoInterface<Item>{
             sqlToInsert.executeUpdate();
             try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
                 if (rs.next()) {
-                    entity.setIdItem(rs.getInt(1));
+                    entity.setIdItem(rs.getInt(1));//Comprobar que la id_item se añade correctamente
                 }
             }
         } catch (Exception e) {

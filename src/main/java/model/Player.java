@@ -87,6 +87,9 @@ public class Player implements NotifiedPlayer{
             this.score += clue.getDifficultyPoints();
         }
     }
+    public boolean isEmpty(){
+        return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
+    }
 
     @Override
     public void readNotification(Notification notification){}
