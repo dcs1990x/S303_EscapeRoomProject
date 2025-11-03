@@ -13,6 +13,7 @@ public class CreateManageDeleteERMenu {
 
     private static final EscapeRoomManager escapeRoomManager = EscapeRoomManager.getInstance();
     private ManageERMenu manageERMenu = new ManageERMenu();
+    private RoomBuilderInterface roomBuilder;
 
     public void showWelcomeMessage(){
         System.out.println("\n<========WELCOME TO THE ESCAPE ROOM MANAGER APP========>");
@@ -73,9 +74,5 @@ public class CreateManageDeleteERMenu {
                 executeMainMenuOption();
             }
         }
-    }
-
-    public void setRoomBuilder(RoomBuilderInterface roomBuilder) {
-        manageERMenu.setRoomBuilder(roomBuilder);
     }
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public enum Theme {
 
-    HORROR("Horror"), SPACE("Space"), VICTORIAN("Victorian"), FANTASY("Fantasy");
+    HORROR("Horror"), SCI_FI("Sci-Fi"), VICTORIAN("Victorian"), FANTASY("Fantasy");
 
     private String description;
 

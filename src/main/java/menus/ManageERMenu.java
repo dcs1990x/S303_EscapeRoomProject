@@ -1,9 +1,7 @@
 package menus;
 
-import model.EscapeRoom;
-import model.Room;
-import model.RoomBuilderInterface;
-import model.UserInput;
+import model.*;
+
 import java.rmi.NoSuchObjectException;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
@@ -12,7 +10,7 @@ import java.util.Optional;
 public class ManageERMenu {
 
     private CreateManageDeleteERMenu createManageDeleteERMenu;
-    private EscapeRoom escapeRoom;
+    private EscapeRoom escapeRoom = new EscapeRoom();
     private RoomBuilderInterface roomBuilder;
 
     public static void modifyRoomsMenu() {
@@ -30,7 +28,7 @@ public class ManageERMenu {
                 modifyRoomsMenuOption = UserInput.readByte("Please select an option: ");
 
                 if (modifyRoomsMenuOption == 1){
-                    roomBuilder.createRoom();
+                    escapeRoom.createRoom();
                     System.out.println("\nThe room was created successfully. ");
                     modifyRoomsMenu();
                 } else if (modifyRoomsMenuOption == 2){
