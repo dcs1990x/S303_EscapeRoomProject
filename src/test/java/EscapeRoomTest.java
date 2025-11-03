@@ -50,7 +50,7 @@ public class EscapeRoomTest {
     void givenARoomBuilder_whenCreatingARoom_thenRoomIsNotNull(){
         Room room1 = new Room();
         Clue clue = new Clue("piece of paper", "number code", HORROR, 5, true, false);
-        Decoration decoration = new Decoration("spider web", HORROR);
+        Decoration decoration = new Decoration("spider web", HORROR,10);
         room1.addClue(clue);
         room1.addDecoration(decoration);
 

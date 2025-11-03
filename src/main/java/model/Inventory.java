@@ -27,14 +27,7 @@ public class Inventory {
     }
 
     public double calculateInventoryCost(){
-        try{
-            for(clue:clues){
-                clueService.getClues().getPrice();}
 
-        }
-        catch(Exception e1){
-            e1.getMessage();
-            System.out.println("The services are not working correctly please contact support team.");
-        }
+
     }
 }

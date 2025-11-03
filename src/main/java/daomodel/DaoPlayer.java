@@ -21,10 +21,10 @@ public class DaoPlayer implements DaoInterface<Player> {
 
 
     public boolean duplicate(Player player){
-        String sql = "SELECT * FROM players WHERE id= ? , name = ?, made-reservation = ?, score = ? ";
+        String sql = "SELECT * FROM players WHERE id-room= ? , name = ?, made-reservation = ?, score = ? ";
         Player playerObtained = new Player();
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
-            pstmt.setLong(1, player.getIdPlayer());
+            pstmt.setLong(1, player.getIdRoom());
             pstmt.setString(2,player.getName());
             pstmt.setBoolean(3, player.hasMadeReservation());
             pstmt.setDouble(4,player.getScore());
