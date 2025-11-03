@@ -10,7 +10,6 @@ public class EscapeRoomManager {
     private static EscapeRoomManager instance;
     private CreateManageDeleteERMenu menu = new CreateManageDeleteERMenu();
     private ArrayList<EscapeRoom> escapeRooms = new ArrayList<>();
-    private Inventory inventory;
     private SubscribersManager subscribersManager;
 
     private EscapeRoomManager(){}
@@ -61,7 +60,4 @@ public class EscapeRoomManager {
         }
     }
 
-    public void getInventory(){
-        System.out.println(inventory);
-    }
 }
