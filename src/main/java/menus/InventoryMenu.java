@@ -1,6 +1,5 @@
 package menus;
 
-import model.Clue;
 import model.UserInput;
 import servicelayer.ClueService;
 import servicelayer.ItemService;
@@ -43,7 +42,9 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
                     showAssetsValue();
                     break;
                 case 4:
-
+                    showMainMenu();
+                    executeMainMenuOption();
+                    break;
                 case 0:
                     System.out.println("Getting out of the menu...");
                     break;
