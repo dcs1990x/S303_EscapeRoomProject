@@ -7,4 +7,4 @@ import model.Theme;
 
 import java.util.List;
 
-public record RoomDTO(String name, Difficulty difficulty, Theme theme, List<Item> items, List<Clue> clues) {}
+public record RoomDTO(String name, Difficulty difficulty, Theme theme, List<Long> itemsId, List<Long> cluesId) {}

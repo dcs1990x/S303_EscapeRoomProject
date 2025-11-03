@@ -13,6 +13,7 @@ public class RoomService {
         daoRoom.readAllEntities();
 
 
+
     }
 
     public void insertRoom(Room room) throws Exception {

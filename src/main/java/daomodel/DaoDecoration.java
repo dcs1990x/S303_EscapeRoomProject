@@ -9,17 +9,17 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoDecoration {
+public class DaoDecoration implements DaoInterface<Decoration> {
     Connection connectionDB;
 
     public DaoDecoration(){
-        System.out.println("Inicializando DaoDecorator..");
+        System.out.println("Inicializando DaoDecoration..");
         try {
             this.connectionDB = DatabaseManagerTest.getConnection();
             if (this.connectionDB != null) {
-                System.out.println("✅ Conexión establecida en DaoDecorator");
+                System.out.println("✅ Conexión establecida en DaoDecoration");
             } else {
-                System.err.println("❌ La conexión es NULL en DaoDecorator");
+                System.err.println("❌ La conexión es NULL en DaoDecoration");
             }
         } catch (Exception e) {
             System.err.println("❌ Error al obtener conexión: " + e.getMessage());
@@ -29,58 +29,54 @@ public class DaoDecoration {
 
 
     public boolean duplicate(Decoration decoration){
-        String sql = "SELECT * FROM decorators WHERE id= ? , name = ?, theme =?, price = ?";
-        Clue decorationObtained = new Clue();
+        String sql = "SELECT * FROM decorators WHERE name = ?, theme =?, price = ?, id-room = ?";
+        Decoration decorationObtained = new Decoration();
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
-            pstmt.setLong(1, decoration.getIdDecoration());
-            pstmt.setString(2,decoration.getName());
-            pstmt.setString(3,decoration.getTheme().getDescription());
-            pstmt.setDouble(4,decoration.getPrice());
+            pstmt.setString(1,decoration.getName());
+            pstmt.setString(2,decoration.getTheme().getDescription());
+            pstmt.setDouble(3,decoration.getPrice());
+            pstmt.setInt(4,decoration.getIdRoom());
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
                 decorationObtained = new Decoration(rs.getString("name"),
-                        rs.getString("description"),
+                        rs.getDouble("price"),
                         Theme.valueOf(rs.getString("theme").toLowerCase()),
-                        rs.getInt("difficulty-points"),
-                        rs.getBoolean("is-important"),
-                        rs.getBoolean("is-solved"));
+                        rs.getInt("id-room"));                        ;
             }
 
-        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
-        return clueObtained.equals(clue);
+        }catch(SQLException sqlExcep3){
+            return false;}
+        return decorationObtained.equals(decoration);
     }
 
     @Override
-    public void insertEntity(Clue entity, int id_room) throws Exception {
+    public void insertEntity(Decoration decoration, int id_room) throws Exception {
         // Verificar conexión
         if (connectionDB == null) {
             throw new SQLException("❌ Connection is null in insertEntity");
         }
 
         // CORRECCIÓN: Usar los nombres correctos de columnas
-        String sql_Insert2 = "INSERT INTO \"clue\" (id_room, name, description, theme, difficultyPoints, isImportant, isSolved) VALUES(?,?,?,?,?,?,?);";
+        String sql_Insert2 = "INSERT INTO \"decoration\" ( name,theme,price,id-room) VALUES(?,?,?,?);";
 
-        try (PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS)) {
-            sqlToInsert.setInt(1, id_room);
-            sqlToInsert.setString(2, entity.getName());
-            sqlToInsert.setString(3, entity.getDescription());
-            sqlToInsert.setString(4, entity.getTheme().getDescription());
-            sqlToInsert.setInt(5, entity.getDifficultyPoints());
-            sqlToInsert.setBoolean(6, entity.getIsImportant());
-            sqlToInsert.setBoolean(7, entity.getIsSolved());
+        try (PreparedStatement pstmt= connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS)) {
+            pstmt.setString(1,decoration.getName());
+            pstmt.setString(2,decoration.getTheme().getDescription());
+            pstmt.setDouble(3,decoration.getPrice());
+            pstmt.setInt(4,decoration.getIdRoom());
 
-            int affectedRows = sqlToInsert.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
             System.out.println("✅ Filas insertadas: " + affectedRows);
 
             if (affectedRows == 0) {
-                throw new SQLException("❌ Inserting clue failed, no rows affected.");
+                throw new SQLException("❌ Inserting decoration failed, no rows affected.");
             }
 
-            try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
+            try (ResultSet rs = pstmt.getGeneratedKeys()) {
                 if (rs.next()) {
-                    entity.setIdClue(rs.getInt(1));
-                    System.out.println("✅ ID generado: " + entity.getIdClue());
+                    decoration.setIdDecoration(rs.getInt(1));
+                    System.out.println("✅ ID generado: " + decoration.getIdDecoration());
                 } else {
                     throw new SQLException("❌ Inserting clue failed, no ID obtained.");
                 }
@@ -95,34 +91,30 @@ public class DaoDecoration {
     }
 
     @Override
-    public Clue readEntity(long entityId){
-        String sql = "SELECT * FROM clues WHERE id = ?";
+    public Decoration readEntity(long entityId){
+        String sql = "SELECT * FROM decoration WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
             ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
-                return new Clue(rs.getString("name"),
-                        rs.getString("description"),
+                return new Decoration(rs.getString("name"),
+                        rs.getDouble("price"),
                         Theme.valueOf(rs.getString("theme").toLowerCase()),
-                        rs.getInt("difficulty-points"),
-                        rs.getBoolean("is-important"),
-                        rs.getBoolean("is-solved"));
+                        rs.getInt("id-room"));
             }
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return null;
     }
 
     @Override
-    public void updateEntity(long entityId, Clue entity) throws Exception {
-        String sql = "UPDATE \"clue\" SET name = ?, description = ?, theme = ?, difficultyPoints = ?, isImportant = ?, isSolved = ? WHERE id = ?";
+    public void updateEntity(long entityId, Decoration decoration) throws Exception {
+        String sql = "UPDATE \"clue\" SET name = ?, price = ?, theme = ?, id-room = ? WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
-            pstmt.setString(1, entity.getName());
-            pstmt.setString(2, entity.getDescription());
-            pstmt.setString(3, entity.getTheme().getDescription());
-            pstmt.setInt(4, entity.getDifficultyPoints());
-            pstmt.setBoolean(5, entity.getIsImportant());
-            pstmt.setBoolean(6, entity.getIsSolved());
-            pstmt.setLong(7, entityId);
+            pstmt.setString(1,decoration.getName());
+            pstmt.setString(2,decoration.getTheme().getDescription());
+            pstmt.setDouble(3,decoration.getPrice());
+            pstmt.setInt(4,decoration.getIdRoom());
+            pstmt.setLong(5, entityId);
             int rows = pstmt.executeUpdate();
             System.out.println("Filas actualizadas: " + rows);
 
@@ -144,9 +136,9 @@ public class DaoDecoration {
     }
 
     @Override
-    public List<Clue> readAllEntities() throws Exception {
-        String sql = "SELECT * FROM \"clue\"";
-        List<Clue> clues = new ArrayList<>();
+    public List<Decoration> readAllEntities() throws Exception {
+        String sql = "SELECT * FROM \"decoration\"";
+        List<Decoration> decorations = new ArrayList<>();
 
         int id;
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql);
@@ -154,26 +146,21 @@ public class DaoDecoration {
 
             while (rs.next()) {
                 id = rs.getInt("ID");
-                Clue clue = new Clue(
-                        rs.getString("NAME"),
-                        rs.getString("DESCRIPTION"),
-                        Theme.valueOf(rs.getString("THEME").toUpperCase()),
-                        rs.getInt("DIFFICULTYPOINTS"),
-                        rs.getBoolean("ISIMPORTANT"),
-                        rs.getBoolean("ISSOLVED")
+                Decoration decoration = new Decoration(
+                        rs.getString("name"),
+                        rs.getDouble("price"),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        rs.getInt("id-room")
                 );
-                clue.setIdClue(id);
-                clues.add(clue);
+                decoration.setIdDecoration(id);
+                decorations.add(decoration);
 
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for (Clue clue : clues) {
-            System.out.println(clue);
-        }
 
-        return clues;
+        return decorations;
     }
 }

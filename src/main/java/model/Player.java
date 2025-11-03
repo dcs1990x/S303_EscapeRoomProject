@@ -11,20 +11,23 @@ public class Player implements NotifiedPlayer{
     private boolean madeReservation;
     private ArrayList<?> playerInventory;
     private int score;
+    private int idRoom;
 
     public Player(){}
 
-    public Player(String name, boolean madeReservation,int score){
+    public Player(String name, boolean madeReservation,int score, int idRoom){
         this.name = name;
         this.madeReservation = madeReservation;
         this.playerInventory = new ArrayList<>();
         this.score = score;
+        this.idRoom = idRoom;
     }
-    public Player(int id, String name, boolean madeReservation,int score){
+    public Player(int id, String name, boolean madeReservation,int score, int idRoom){
         this.idPlayer = id;
         this.name = name;
         this.madeReservation = madeReservation;
         this.score = score;
+        this.idRoom = idRoom;
     }
 
     public int getIdPlayer(){return this.idPlayer;}
@@ -87,9 +90,6 @@ public class Player implements NotifiedPlayer{
             this.score += clue.getDifficultyPoints();
         }
     }
-    public boolean isEmpty(){
-        return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
-    }
 
     @Override
     public void readNotification(Notification notification){}
@@ -108,9 +108,18 @@ public class Player implements NotifiedPlayer{
     public String toString(){
         return "Player " + System.lineSeparator() +
                 "Name: " + getName() + System.lineSeparator() +
-                "Made reservation? " + hasMadeReservation() + System.lineSeparator();
+                "Made reservation? " + hasMadeReservation() + System.lineSeparator() +
+                "Room id: " + getIdRoom() + System.lineSeparator();
     }
     public boolean isEmpty(){
         return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
+    }
+
+    public int getIdRoom() {
+        return idRoom;
+    }
+
+    public void setIdRoom(int idRoom) {
+        this.idRoom = idRoom;
     }
 }
