@@ -1,5 +1,7 @@
 package model;
 
+import servicelayer.DecorationService;
+
 import java.rmi.NoSuchObjectException;
 import java.util.*;
 
@@ -9,12 +11,13 @@ public class EscapeRoom {
     private List<Room> rooms;
     private RoomBuilderInterface roomBuilder = new RoomBuilder();
     private Scanner scanner = new Scanner(System.in);
+    private DecorationService decorationService = new DecorationService();
 
-    public EscapeRoom(){
+    public EscapeRoom() throws Exception{
         this.rooms = new ArrayList<>();
     }
 
-    public EscapeRoom(String name){
+    public EscapeRoom(String name) throws Exception{
         this.name = name;
         this.rooms = new ArrayList<>();
     }
@@ -27,7 +30,7 @@ public class EscapeRoom {
         return List.copyOf(rooms);
     }
 
-    public Room createRoom(){
+    public Room createRoom() throws Exception {
         String RoomName = UserInput.readLine("Please enter the name of the room: ");
         roomBuilder.setRoomName(RoomName);
 
@@ -46,7 +49,9 @@ public class EscapeRoom {
         byte addDecoOrGoBackOption = 1;
         while (addDecoOrGoBackOption == 1) {
             System.out.println("These are the available decorations for the rooms: \n");
-            Decoration.getDecorationsList();
+
+            decorationService.readAllEntities();
+
             String decorationString = UserInput.readLine("Type a piece of decoration to add to the room: ");
             Optional<Decoration> decoration = Decoration.fromString(decorationString);
             roomBuilder.addRoomDecoration(Decoration.valueOf(String.valueOf(decoration)));

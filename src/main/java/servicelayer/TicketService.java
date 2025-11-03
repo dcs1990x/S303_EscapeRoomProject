@@ -21,7 +21,7 @@ public class TicketService {
     public void addClue(Ticket ticket){
         try{
             if(!ticket.isEmpty()||!searchDuplicates(ticket)){
-                daoTicket.insertEntity(ticket);}
+                daoTicket.insertEntity(ticket, 0);}
             else{System.out.println("The ticket was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){

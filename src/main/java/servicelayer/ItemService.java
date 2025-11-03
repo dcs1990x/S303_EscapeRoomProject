@@ -18,10 +18,10 @@ public class ItemService {
         return daoItem.duplicate(item);
     }
 
-    public void addClue(Item item){
+    public void addItem(Item item, int id){
         try{
             if(!item.isEmpty()||!searchDuplicates(item)){
-                daoItem.insertEntity(item);}
+                daoItem.insertEntity(item, id);}
             else{System.out.println("The item was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){
@@ -30,10 +30,10 @@ public class ItemService {
         }
 
     }
-    public void updateClue(Item item){
+    public void updateItem(Item item, long id){
         try{
             if(!item.isEmpty()||searchDuplicates(item)){
-                daoItem.updateEntity(item.getIdItem(),item);}
+                daoItem.updateEntity(id, item);}
             else{System.out.println("The item was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){
@@ -65,5 +65,9 @@ public class ItemService {
         final Item item = daoItem.readEntity(id);
 
         return new ItemDTO(item.getName(),item.getDescription(),item.getPrice());
+    }
+
+    public void deleteItemById(long id) throws Exception {
+        daoItem.deleteEntity(id);
     }
 }

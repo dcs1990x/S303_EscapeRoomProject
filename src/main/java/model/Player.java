@@ -11,30 +11,30 @@ public class Player implements NotifiedPlayer{
     private boolean madeReservation;
     private ArrayList<?> playerInventory;
     private int score;
+    private int idRoom;
 
-    public Player(String name, boolean madeReservation, ArrayList<?> playerInventory){
+    public Player(){}
+
+    public Player(String name, boolean madeReservation,int score, int idRoom){
         this.name = name;
         this.madeReservation = madeReservation;
         this.playerInventory = new ArrayList<>();
-    }
-    public Player(String name, boolean madeReservation,int score){
-        this.name = name;
-        this.madeReservation = madeReservation;
         this.score = score;
+        this.idRoom = idRoom;
     }
-    public Player(int id, String name, boolean madeReservation,int score){
+    public Player(int id, String name, boolean madeReservation,int score, int idRoom){
         this.idPlayer = id;
         this.name = name;
         this.madeReservation = madeReservation;
         this.score = score;
+        this.idRoom = idRoom;
     }
-
-    public Player() {}
 
     public int getIdPlayer(){return this.idPlayer;}
     public String getName(){
         return this.name;
     }
+
 
     public boolean hasMadeReservation(){
         return madeReservation;
@@ -108,9 +108,18 @@ public class Player implements NotifiedPlayer{
     public String toString(){
         return "Player " + System.lineSeparator() +
                 "Name: " + getName() + System.lineSeparator() +
-                "Made reservation? " + hasMadeReservation() + System.lineSeparator();
+                "Made reservation? " + hasMadeReservation() + System.lineSeparator() +
+                "Room id: " + getIdRoom() + System.lineSeparator();
     }
     public boolean isEmpty(){
         return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
+    }
+
+    public int getIdRoom() {
+        return idRoom;
+    }
+
+    public void setIdRoom(int idRoom) {
+        this.idRoom = idRoom;
     }
 }

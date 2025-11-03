@@ -5,6 +5,7 @@ import dtomodel.ClueDTO;
 import model.Clue;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,22 +19,22 @@ public class ClueService{
         return clueDAO.duplicate(clue);
     }
 
-    public void addClue(Clue clue){
-       try{
-           if(!clue.isEmpty()||!searchDuplicates(clue)){
-           clueDAO.insertEntity(clue);}
-           else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
-       }
-       catch(Exception sqle1){
-           System.err.println(sqle1.getMessage());
-           System.out.println("The clue was not added correctly, please try again with the correct format");
-       }
+    public void addClue(Clue clue, int idRoom){
+        try{
+            if(!clue.isEmpty()||!searchDuplicates(clue)){
+                clueDAO.insertEntity(clue, idRoom);}
+            else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
+        }
+        catch(Exception sqle1){
+            System.err.println(sqle1.getMessage());
+            System.out.println("The clue was not added correctly, please try again with the correct format");
+        }
 
     }
-    public void updateClue(Clue clue){
+    public void updateClue(Clue clue, long id){
         try{
             if(!clue.isEmpty()||searchDuplicates(clue)){
-                clueDAO.updateEntity(clue.getIdClue(),clue);}
+                clueDAO.updateEntity(id, clue);}
             else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){
@@ -61,10 +62,9 @@ public class ClueService{
         }
         return cluesDTO;
     }
-    public ClueDTO getClue(Long id) throws Exception {
-        final Clue clue = clueDAO.readEntity(id);
 
-        return new ClueDTO(clue.getName(),clue.getDescription(),clue.getDifficultyPoints(),clue.getIsSolved());
+    public void deleteClueById(long id) throws Exception {
+            clueDAO.deleteEntity(id);
     }
 
 }

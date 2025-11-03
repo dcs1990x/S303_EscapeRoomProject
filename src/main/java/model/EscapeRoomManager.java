@@ -10,7 +10,6 @@ public class EscapeRoomManager {
     private static EscapeRoomManager instance;
     private CreateManageDeleteERMenu menu = new CreateManageDeleteERMenu();
     private ArrayList<EscapeRoom> escapeRooms = new ArrayList<>();
-    private Inventory inventory;
     private SubscribersManager subscribersManager;
 
     private EscapeRoomManager(){}
@@ -46,7 +45,7 @@ public class EscapeRoomManager {
         throw new NoSuchElementException("No escape room found with the name \"" + name + "\".");
     }
 
-    public void deleteEscapeRoom(EscapeRoom escapeRoomToDelete) throws NoSuchElementException {
+    public void deleteEscapeRoom(Optional<EscapeRoom> escapeRoomToDelete) throws NoSuchElementException {
         checkEmptyEscapeRoomList();
         escapeRooms.remove(escapeRoomToDelete);
     }
@@ -61,7 +60,4 @@ public class EscapeRoomManager {
         }
     }
 
-    public void getInventory(){
-        System.out.println(inventory);
-    }
 }
