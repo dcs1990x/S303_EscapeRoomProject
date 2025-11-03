@@ -55,12 +55,30 @@ public class DaoRoom implements DaoInterface<Room> {
 
     @Override
     public void updateEntity(long entityId, Room entity) throws Exception {
+        String sql = "UPDATE \"room\" SET name = ?, difficulty = ?,  price = ? WHERE id_room = ?";
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setString(1, entity.getName());
+            pstmt.setString(2, entity.getDifficulty().getDescription());
+            pstmt.setDouble(3, entity.getPrice());
+            pstmt.setLong(4, entityId);
+            int rows = pstmt.executeUpdate();
+            System.out.println("Filas actualizadas: " + rows);
 
+        }catch (SQLException sqlExcep3) {
+            sqlExcep3.printStackTrace();
+            System.err.println("❌ Error en updateEntity: " + sqlExcep3.getMessage());
+        }
     }
 
     @Override
     public void deleteEntity(long entityId) throws Exception {
+        String sql = "DELETE FROM \"room\" WHERE id = ?";
+        try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
+            pstmt.setLong(1, entityId);
+            pstmt.executeUpdate();
+            System.out.println("The deletion was completed successfully. \n");
 
+        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
     }
 
     @Override

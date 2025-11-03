@@ -17,5 +17,12 @@ public class RoomService {
         daoRoom.insertEntity(room, 1);
     }
 
+    public void updateRoom(Room room, int id) throws Exception {
+        daoRoom.updateEntity(id, room);
+    }
+
+    public void deleteRoomById(long id) throws Exception {
+        daoRoom.deleteEntity(id);
+    }
 
 }

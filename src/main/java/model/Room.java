@@ -6,7 +6,7 @@ import java.util.List;
 public class Room implements RoomSolvedCallback{
 
     private String name;
-    private int price;
+    private double price;
     private Theme theme;
     private Difficulty difficulty;
     private boolean isSolved;
@@ -15,6 +15,13 @@ public class Room implements RoomSolvedCallback{
     private List<Clue> clues = new ArrayList<>();
     private int idRoom;
 
+    public Room(){}
+
+    public Room(String name, Difficulty difficulty, double price){
+        this.name = name;
+        this.difficulty = difficulty;
+        this.price = price;
+    }
     public String getName(){
         return this.name;
     }
@@ -23,7 +30,7 @@ public class Room implements RoomSolvedCallback{
         return this.theme;
     }
 
-    public int getPrice(){
+    public double getPrice(){
         return this.price;
     }
 

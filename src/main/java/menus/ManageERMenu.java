@@ -20,6 +20,7 @@ public class ManageERMenu {
         System.out.println("1. CREATE A ROOM" + System.lineSeparator() +
                 "2. MODIFY ROOM" + System.lineSeparator() +
                 "3. DELETE ROOM" + System.lineSeparator() +
+                 "4. READ ROOM" + System.lineSeparator() +
 
                 "0. GO BACK" + System.lineSeparator());
         //Falta leer habitaciones.
@@ -40,18 +41,45 @@ public class ManageERMenu {
                     System.out.println("\nThe room was created successfully. ");
                     roomService.insertRoom(room);
                     modifyRoomsMenu();
-                    //Persistir habitaciones creadas
+                    executeModifyRoomsMenuOption();
+
+
                 } else if (modifyRoomsMenuOption == 2){
                     //Modificar habitaciones
+                    roomService.readAllRooms();
+
+                    int id = UserInput.readInt("Type the id of the room you want to modify: ");
+                    Room room = new Room(UserInput.readLine("Ingrese el nuevo nombre"), Difficulty.VERY_EASY,
+                             UserInput.readInt("Type the new price"));
+                    roomService.updateRoom(room, id);
+                    /// //////////////////////////////////////////
+                    modifyRoomsMenu();
+                    executeModifyRoomsMenuOption();
 
                 } else if (modifyRoomsMenuOption == 3){
+                    /*
                     Optional<Room> selectedRoom = escapeRoom.getRoomByConsole();
                     Room roomToDelete = selectedRoom.get();
                     escapeRoom.deleteEscapeRoom(roomToDelete);
                     System.out.println("The escape room \"" + roomToDelete.getName() + "\" was deleted successfully. ");
+                    */
+                    roomService.readAllRooms();
+                    try {
+                        roomService.deleteRoomById(UserInput.readInt("Type the id of the room you want to delete: "));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     modifyRoomsMenu();
                     executeModifyRoomsMenuOption();
-                } else if (modifyRoomsMenuOption == 0){
+
+                }else if (modifyRoomsMenuOption == 4){
+                    try {
+                        roomService.readAllRooms();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else if (modifyRoomsMenuOption == 0){
                     createManageDeleteERMenu.showMainMenu();
                 } else {
                     throw new InputMismatchException();

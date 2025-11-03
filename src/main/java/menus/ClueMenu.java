@@ -58,7 +58,7 @@ public class ClueMenu {
     }
 
     private void modifyClue() {
-        lectura.readRooms();
+        lectura.readRooms();//Llamar desde el service de DaoRoom
         int id = UserInput.readInt("Seleccione la id de la clue a modificar: ");
         Clue clue = new Clue(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
                 Theme.SPACE, UserInput.readInt("Ingrese la nueva dificultad") , true, false);
