@@ -12,7 +12,9 @@ public class Player implements NotifiedPlayer{
     private ArrayList<?> playerInventory;
     private int score;
 
-    public Player(String name, boolean madeReservation, ArrayList<?> playerInventory){
+    public Player(){}
+
+    public Player(String name, boolean madeReservation, int score){
         this.name = name;
         this.madeReservation = madeReservation;
         this.playerInventory = new ArrayList<>();
@@ -34,6 +36,10 @@ public class Player implements NotifiedPlayer{
     public int getIdPlayer(){return this.idPlayer;}
     public String getName(){
         return this.name;
+    }
+
+    public int getIdPlayer(){
+        return this.idPlayer;
     }
 
     public boolean hasMadeReservation(){
@@ -59,7 +65,9 @@ public class Player implements NotifiedPlayer{
     public void setMadeReservation(boolean madeReservation){
         this.madeReservation = madeReservation;
     }
-
+    public void setIdPlayer(int id){
+        this.idPlayer = id;
+    }
     public void setScore(Room room){
         try{
             if (room.getDifficulty() == VERY_EASY){
@@ -89,6 +97,9 @@ public class Player implements NotifiedPlayer{
             clue.setIsSolved();
             this.score += clue.getDifficultyPoints();
         }
+    }
+    public boolean isEmpty(){
+        return idPlayer == 0 && name == null && madeReservation == false && playerInventory.isEmpty() && score == 0;
     }
 
     @Override
