@@ -102,6 +102,8 @@ public class CreateManageDeleteERMenu {
                 System.out.println("Invalid input. Please enter a number between 0 and 5: ");
                 showMainMenu();
                 executeMainMenuOption();
+            } catch (Exception e){
+                System.out.println(e.getMessage());
             }
         }
     }

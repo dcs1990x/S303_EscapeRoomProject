@@ -1,12 +1,11 @@
 package servicelayer;
 
-
 import daomodel.DaoDecoration;
 import dtomodel.DecorationDTO;
 import model.Decoration;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class DecorationService {
     private final DaoDecoration decorationDAO = new DaoDecoration();
@@ -63,5 +62,15 @@ public class DecorationService {
 
     public void deleteClueById(long id) throws Exception {
         decorationDAO.deleteEntity(id);
+    }
+
+    public Optional<DecorationDTO> getDecorationFromString(String input) throws Exception {
+        if (input == null || input.trim().isEmpty()) {
+            return Optional.empty();
+        }
+
+        return readAllEntities().stream()
+                .filter(d -> d.getName().equalsIgnoreCase(input.trim()))
+                .findFirst();
     }
 }
