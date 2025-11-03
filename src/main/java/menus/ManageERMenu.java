@@ -33,17 +33,11 @@ public class ManageERMenu {
                 modifyRoomsMenuOption = UserInput.readByte("Please select an option: ");
 
                 if (modifyRoomsMenuOption == 1){
-                    Room room =  roomBuilder.setRoomName(UserInput.readLine("Elije el nombre de una hab"))
-                            .setRoomDifficulty(Difficulty.VERY_EASY)
-                            .setRoomTheme(Theme.SPACE)
-                            .createRoom();
-
+                    Room room = escapeRoom.createRoom();
                     System.out.println("\nThe room was created successfully. ");
                     roomService.insertRoom(room);
                     modifyRoomsMenu();
                     executeModifyRoomsMenuOption();
-
-
                 } else if (modifyRoomsMenuOption == 2){
                     //Modificar habitaciones
                     roomService.readAllRooms();

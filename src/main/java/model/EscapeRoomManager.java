@@ -21,7 +21,7 @@ public class EscapeRoomManager {
         return instance;
     }
 
-    public EscapeRoom createEscapeRoom(){
+    public EscapeRoom createEscapeRoom() throws Exception {
         String name = UserInput.readLine("\nPlease write the escape room's name: ");
         EscapeRoom escapeRoom = new EscapeRoom(name);
         escapeRooms.add(escapeRoom);
