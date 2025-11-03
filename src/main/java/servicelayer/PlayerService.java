@@ -17,7 +17,7 @@ public class PlayerService {
         return daoPlayer.duplicate(player);
     }
 /*
-    public void addClue(Player player){
+    public void addPlayer(Player player){
         try{
             if(!player.isEmpty()||!searchDuplicates(player)){
                 daoPlayer.insertEntity(player);}

@@ -1,6 +1,7 @@
 package servicelayer;
 
 import daomodel.DaoRoom;
+import dtomodel.RoomDTO;
 import model.Room;
 
 public class RoomService {
@@ -8,8 +9,9 @@ public class RoomService {
 
     public RoomService() {}
 
-    public void readAllRooms() throws Exception {
+    public List<RoomDTO> readAllRooms() throws Exception {
         daoRoom.readAllEntities();
+
 
     }
 
