@@ -47,6 +47,9 @@ public class Decoration {
     public void setIdDecoration(int idDecoration) {
         this.idDecoration = idDecoration;
     }
+    public boolean isEmpty(){
+        return name == null && price == 0.0 && theme == null && idRoom == 0 ;
+    }
 
 
 }

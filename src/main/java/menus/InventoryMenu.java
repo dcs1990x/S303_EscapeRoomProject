@@ -6,6 +6,7 @@ import servicelayer.ClueService;
 import servicelayer.ItemService;
 import servicelayer.RoomService;
 import views.ClueView;
+import views.DecorationView;
 import views.ItemView;
 import views.RoomView;
 
@@ -17,6 +18,7 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
     ClueView clueView = new ClueView();
     ItemView itemView = new ItemView();
     RoomView roomView = new RoomView();
+    DecorationView decorationView = new DecorationView();
 
     public void optionSelector(){
         int opcion = -1;
@@ -55,6 +57,7 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
             roomView.showRooms();
             clueView.showClues();
             itemView.showItems();
+            decorationView.showDecorations();
 
         } catch (Exception e) {
             System.out.println("Cannot be retrieved clues/items/rooms from the DB. Something wrong has happened. Please contact support");
