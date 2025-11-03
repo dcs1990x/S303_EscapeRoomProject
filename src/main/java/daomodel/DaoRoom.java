@@ -3,22 +3,24 @@ package daomodel;
 import database.DatabaseManagerTest;
 import model.Room;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DaoRoom implements DaoInterface{
+public class DaoRoom implements DaoInterface {
     Connection connectionDB;
 
-    public void DaoRoom(){
-            this.connectionDB = DatabaseManagerTest.getConnection();
+    public DaoRoom() {
+        this.connectionDB = DatabaseManagerTest.getConnection();
     }
 
+    public void insertRoom(Object entity) throws Exception {
+
+    }
+
+
     @Override
-    public void insertEntity(Object entity) throws Exception {
+    public void insertEntity(Object entity, int id) throws Exception {
 
     }
 
@@ -46,11 +48,14 @@ public class DaoRoom implements DaoInterface{
 
         String sql =
                 "SELECT " +
-                        "  r.NAME AS ROOM_NAME, " +
-                        "  r.DIFFICULTY, " +
-                        "  r.PRICE, " +
-                        "  item.NAME AS ITEM_NAME, " +
-                        "  clue.NAME AS CLUE_NAME " +
+                        "r.ID_ROOM AS ID_ROOM, " +
+                        "r.NAME AS ROOM_NAME, " +
+                        "r.DIFFICULTY, " +
+                        "r.PRICE, " +
+                        "item.ID_ITEM AS ID_ITEM, " +        // ← AÑADIR ESTO
+                        "item.NAME AS ITEM_NAME, " +
+                        "clue.ID AS CLUE_ID, " +        // ← AÑADIR ESTO
+                        "clue.NAME AS CLUE_NAME " +
                         "FROM \"room\" r " +
                         "LEFT JOIN \"item\" item ON r.ID_ROOM = item.ID_ROOM " +
                         "LEFT JOIN \"clue\" clue ON r.ID_ROOM = clue.ID_ROOM " +
@@ -60,16 +65,31 @@ public class DaoRoom implements DaoInterface{
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-            //    int roomId = rs.getInt("ID_ROOM");
+                int roomId = rs.getInt("ID_ROOM");
+                System.out.println("[Room ID]: " + roomId);
+
                 String roomName = rs.getString("ROOM_NAME");
-                System.out.println(roomName);
+                System.out.println("[Room Name]: " + roomName);
+
                 String difficulty = rs.getString("DIFFICULTY");
+                System.out.println("[Difficulty]: " + difficulty);
+
                 double price = rs.getDouble("PRICE");
-               // int itemName = rs.getInt("ID_ITEM");
-                String itemId = rs.getString("ITEM_NAME");
-               // int clueId = rs.getInt("CLUE_ID");
+                System.out.println("[Price]: $" + price);
+
+                int itemId = rs.getInt("ID_ITEM");
+                System.out.println("[Item ID]: " + itemId);
+
+                String itemName = rs.getString("ITEM_NAME");
+                System.out.println("[Item Name]: " + itemName);
+
+                int clueId = rs.getInt("CLUE_ID");
+                System.out.println("[Clue ID]: " + clueId);
+
                 String clueName = rs.getString("CLUE_NAME");
-                System.out.println("[Clue name]: " + clueName);
+                System.out.println("[Clue Name]: " + clueName);
+
+                System.out.println("-----------------------------------"); // Separador entre registros
             }
 
         } catch (SQLException e) {

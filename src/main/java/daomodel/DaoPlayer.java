@@ -41,7 +41,7 @@ public class DaoPlayer implements DaoInterface<Player> {
         return playerObtained.equals(player);
     }
     @Override
-    public void insertEntity(Player entity) throws Exception {
+    public void insertEntity(Player entity, int id) throws Exception {
         try {
             String sql_Insert2 = "INSERT INTO players (name,made-reservation,score) VALUES(?,?,?);";
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);

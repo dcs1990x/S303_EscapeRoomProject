@@ -10,7 +10,6 @@ import model.UserInput;
 
 public class ClueMenu {
     ClueService clueService = new ClueService();
-    ItemService itemService = new ItemService();
     MenuLecturaLois lectura = new MenuLecturaLois();
 
 
@@ -52,16 +51,17 @@ public class ClueMenu {
 
     private void createClue() {
 
-        Clue clue = new Clue("Pista_1", "Pista sobre alienígena", Theme.SPACE, 5, true, false);
-        //Falta añadir la selección de sala por parte del user y la selección de los elementos.
-        clueService.addClue(clue);
-        //pasar al DAO
+        Clue clue = new Clue(UserInput.readLine("Ingrese nombre"), UserInput.readLine("Ingrese descripcion"),
+                Theme.SPACE, UserInput.readInt("Ingrese puntos de dificultad"), true, false);
+        lectura.readRooms();
+        clueService.addClue(clue, UserInput.readInt("Ingrese id de la habitación donde ingresará la pista"));
     }
 
     private void modifyClue() {
-        int id = 4;
-        //Le pedimos al usuario que introduzaca el id de la pista a actualizar
-        Clue clue = new Clue("Pista_nueva", "Pista nueva para test", Theme.SPACE, 6543, true, false);
+        lectura.readRooms();
+        int id = UserInput.readInt("Seleccione la id de la clue a modificar: ");
+        Clue clue = new Clue(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
+                Theme.SPACE, UserInput.readInt("Ingrese la nueva dificultad") , true, false);
         clueService.updateClue(clue, id);
     }
 
@@ -71,16 +71,12 @@ public class ClueMenu {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //Conexión a service para leer todas las pistas.
     }
 
     private void deleteClue()  {
-        //Mostramos todas las clues
-        lectura.readClue();
-
-        int id = 1; //aquí iría el scanner pidiendo que se elija la clave que quiere borrar.
+        readClue();
         try {
-            clueService.deleteClueById(id);
+            clueService.deleteClueById(UserInput.readInt("Selecciona la id de la clue a modificar: "));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

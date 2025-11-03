@@ -44,7 +44,7 @@ public class DaoTicket implements DaoInterface<Ticket> {
         return ticketObtained.equals(ticket);
     }
     @Override
-    public void insertEntity(Ticket ticket) throws Exception {
+    public void insertEntity(Ticket ticket, int id) throws Exception {
         try {
             String sql_Insert2 = "INSERT INTO tickets (player-id,player-name,ticket-title,date-sold,price-paid) VALUES(?,?,?,?,?);";
             PreparedStatement pstmt = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);

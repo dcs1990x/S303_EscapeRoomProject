@@ -45,7 +45,6 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "idItem=" + idItem +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", theme=" + theme +
