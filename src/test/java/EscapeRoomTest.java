@@ -29,7 +29,6 @@ public class EscapeRoomTest {
     void givenInputUser_whenCreatingAnEscapeRoom_thenReturnEscapeRoom() {
         String simulatedInput = "La Casa de Papel\n";
         Scanner scanner = new Scanner(new ByteArrayInputStream(simulatedInput.getBytes()));
-        escapeRoomManager.setScanner(scanner);
 
         EscapeRoom escapeRoom = escapeRoomManager.createEscapeRoom();
         assertNotNull(escapeRoom);
@@ -41,7 +40,6 @@ public class EscapeRoomTest {
     void givenAScapeRoomName_whenLookingForAEscapeRoom_thenGetThatEscapeRoom() throws NoSuchObjectException {
         String simulatedInput = "La Casa de Papel\nLa Casa de Papel\n";
         Scanner scanner = new Scanner(new ByteArrayInputStream(simulatedInput.getBytes()));
-        escapeRoomManager.setScanner(scanner);
 
         EscapeRoom escapeRoom = escapeRoomManager.createEscapeRoom();
         Optional<EscapeRoom> escapeRoomGot = escapeRoomManager.getEscapeRoomByConsole();

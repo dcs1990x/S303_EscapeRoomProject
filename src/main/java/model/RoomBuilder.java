@@ -9,6 +9,12 @@ public class RoomBuilder implements RoomBuilderInterface {
     }
 
     @Override
+    public RoomBuilderInterface setRoomName(String name){
+        room.setName(name);
+        return this;
+    }
+
+    @Override
     public RoomBuilderInterface setRoomTheme(Theme theme) {
         room.setTheme(theme);
         return this;
