@@ -29,7 +29,7 @@ public class DaoDecoration implements DaoInterface<Decoration> {
 
 
     public boolean duplicate(Decoration decoration){
-        String sql = "SELECT * FROM decorators WHERE name = ?, theme =?, price = ?, id-room = ?";
+        String sql = "SELECT * FROM decoration WHERE name = ?, theme =?, price = ?, id_room = ?";
         Decoration decorationObtained = new Decoration();
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1,decoration.getName());
@@ -58,7 +58,7 @@ public class DaoDecoration implements DaoInterface<Decoration> {
         }
 
         // CORRECCIÓN: Usar los nombres correctos de columnas
-        String sql_Insert2 = "INSERT INTO \"decoration\" ( name,theme,price,id-room) VALUES(?,?,?,?);";
+        String sql_Insert2 = "INSERT INTO \"decoration\" ( name,theme,price,id_room) VALUES(?,?,?,?);";
 
         try (PreparedStatement pstmt= connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS)) {
             pstmt.setString(1,decoration.getName());

@@ -52,7 +52,7 @@ public class ClueMenu {
     private void createClue() {
 
         Clue clue = new Clue(UserInput.readLine("Ingrese nombre"), UserInput.readLine("Ingrese descripcion"),
-                Theme.SPACE, UserInput.readInt("Ingrese puntos de dificultad"), true, false);
+                Theme.SCI_FI, UserInput.readInt("Ingrese puntos de dificultad"), true, false);
         lectura.readRooms();
         clueService.addClue(clue, UserInput.readInt("Ingrese id de la habitación donde ingresará la pista"));
     }
@@ -61,7 +61,7 @@ public class ClueMenu {
         lectura.readRooms();//Llamar desde el service de DaoRoom
         int id = UserInput.readInt("Seleccione la id de la clue a modificar: ");
         Clue clue = new Clue(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
-                Theme.SPACE, UserInput.readInt("Ingrese la nueva dificultad") , true, false);
+                Theme.SCI_FI, UserInput.readInt("Ingrese la nueva dificultad") , true, false);
         clueService.updateClue(clue, id);
     }
 

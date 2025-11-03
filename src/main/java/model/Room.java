@@ -1,7 +1,10 @@
 package model;
 
+import dtomodel.DecorationDTO;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Room implements RoomSolvedCallback{
 

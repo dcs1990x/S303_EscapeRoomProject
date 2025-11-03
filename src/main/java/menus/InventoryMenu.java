@@ -1,5 +1,6 @@
 package menus;
 
+import database.DatabaseManagerTest;
 import model.UserInput;
 import servicelayer.ClueService;
 import servicelayer.ItemService;
@@ -9,11 +10,13 @@ import views.DecorationView;
 import views.ItemView;
 import views.RoomView;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class InventoryMenu extends CreateManageDeleteERMenu{
-    ClueService clueService = new ClueService();
-    ItemService itemService = new ItemService();
-    RoomService roomService = new RoomService();
-    MenuLecturaLois lectura = new MenuLecturaLois();
+    Connection connectionDB;
     ClueView clueView = new ClueView();
     ItemView itemView = new ItemView();
     RoomView roomView = new RoomView();
@@ -67,8 +70,35 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
         }
 
     }
-    public void showAssetsValue(){}
+
+    public void showAssetsValue(){
+        try {
+            this.connectionDB = DatabaseManagerTest.getConnection();
+            if (connectionDB == null) {
+                throw new SQLException("❌ Connection is null");
+            }
+            double total = 0;
+            String[] tables = {"clue", "decoration", "item", "room"};
+
+            for (String table : tables) {
+                String sql = "SELECT SUM(price) AS total_price FROM " + table;
+                try (PreparedStatement stmt = connectionDB.prepareStatement(sql);
+                     ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        total += rs.getDouble("total_price");
+                    }
+                }
+            }
+
+            System.out.printf("Valor total de los activos del Escape Room: %.2f €%n", total);
+
+        } catch (SQLException e) {
+            System.err.println("Error al calcular el valor total de activos: " + e.getMessage());
+        }
+    }
+
     public void deleteObject(){
+        showInventory();
 
     }
 

@@ -54,7 +54,9 @@ public class Menu {
                 System.out.println(ime.getMessage());
             }/* catch (NoSuchObjectException nsoe) {
                 System.out.println(nsoe.getMessage());
-            }*/
+            }*/ catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

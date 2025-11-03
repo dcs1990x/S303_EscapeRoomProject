@@ -30,7 +30,7 @@ public class MenuModificacionLois {
     private void modifyClue() {
         int id = 4;
         //Le pedimos al usuario que introduzaca el id de la pista a actualizar
-        Clue clue = new Clue("Pista_nueva", "Pista nueva para test", Theme.SPACE, 6543, true, false);
+        Clue clue = new Clue("Pista_nueva", "Pista nueva para test", Theme.SCI_FI, 6543, true, false);
         clueService.updateClue(clue, id);
     }
 
@@ -38,7 +38,7 @@ public class MenuModificacionLois {
         lectura.readRooms();// vemos que habitaciones tenemos para saber que queremos modificar
 
         int id = 4;
-        Item item = new Item("los", "sdfsdf", Theme.SPACE, 123, true);
+        Item item = new Item("los", "sdfsdf", Theme.SCI_FI, 123, true);
         itemService.updateItem(item,id);
     }
 
