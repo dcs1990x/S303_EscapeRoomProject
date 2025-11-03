@@ -16,11 +16,11 @@ public class PlayerService {
     public boolean searchDuplicates(Player player){
         return daoPlayer.duplicate(player);
     }
-/*
-    public void addClue(Player player){
+
+    public void addPlayer(Player player){
         try{
             if(!player.isEmpty()||!searchDuplicates(player)){
-                daoPlayer.insertEntity(player);}
+                daoPlayer.insertEntity(player, 0);}
             else{System.out.println("Player was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){
@@ -28,9 +28,9 @@ public class PlayerService {
             System.out.println("Player was not added correctly, please try again with the correct format");
         }
 
-    }*/
-    /*
-    public void updateClue(Player player){
+    }
+
+    public void updatePlayer(Player player){
         try{
             if(!player.isEmpty()||searchDuplicates(player)){
                 daoPlayer.updateEntity(player.getIdPlayer(),player);}
@@ -40,9 +40,9 @@ public class PlayerService {
             System.err.println(sqle1.getMessage());
             System.out.println("Player was not added correctly, please try again with the correct format");
         }
-    }*/
+    }
 
-    public PlayerDTO readItemById(long id){
+    public PlayerDTO readPlayerById(long id){
         Player readPlayer = null;
         try{
             readPlayer = daoPlayer.readEntity(id);

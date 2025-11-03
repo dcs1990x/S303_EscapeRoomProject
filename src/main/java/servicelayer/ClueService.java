@@ -19,10 +19,10 @@ public class ClueService{
         return clueDAO.duplicate(clue);
     }
 
-    public void addClue(Clue clue){
+    public void addClue(Clue clue, int idRoom){
         try{
             if(!clue.isEmpty()||!searchDuplicates(clue)){
-                clueDAO.insertEntity(clue);}
+                clueDAO.insertEntity(clue, idRoom);}
             else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){

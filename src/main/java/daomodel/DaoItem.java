@@ -42,24 +42,25 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void insertEntity(Item entity) throws Exception {
+    public void insertEntity(Item entity, int id) throws Exception {
         // Verificar conexión
         if (connectionDB == null) {
             throw new SQLException("❌ Connection is null in insertEntity");
         }
         try {
 
-            String sql_Insert2 = "INSERT INTO \"item\" (name, description, theme, price, isimportant) VALUES (?, ?, ?, ?, ?)";
+            String sql_Insert2 = "INSERT INTO \"item\" (id_room, name, description, theme, price, isimportant) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
-            sqlToInsert.setString(1, entity.getName());
-            sqlToInsert.setString(2, entity.getDescription());
-            sqlToInsert.setString(3, entity.getTheme().getDescription());
-            sqlToInsert.setDouble(4, entity.getPrice());
-            sqlToInsert.setBoolean(5, entity.getIsImportant());
+            sqlToInsert.setInt(1, id);
+            sqlToInsert.setString(2, entity.getName());
+            sqlToInsert.setString(3, entity.getDescription());
+            sqlToInsert.setString(4, entity.getTheme().getDescription());
+            sqlToInsert.setDouble(5, entity.getPrice());
+            sqlToInsert.setBoolean(6, entity.getIsImportant());
             sqlToInsert.executeUpdate();
             try (ResultSet rs = sqlToInsert.getGeneratedKeys()) {
                 if (rs.next()) {
-                    entity.setIdItem(rs.getInt(1));
+                    entity.setIdItem(rs.getInt(1));//Comprobar que la id_item se añade correctamente
                 }
             }
         } catch (Exception e) {
@@ -114,10 +115,12 @@ public class DaoItem implements DaoInterface<Item>{
     public List readAllEntities() throws Exception {
         String sql = "SELECT * FROM \"item\"";
         List<Item> items = new ArrayList<>();
+        List<Integer> id_item = new ArrayList<>();
         try (
                 PreparedStatement pstmt = connectionDB.prepareStatement(sql);
                 ResultSet rs = pstmt.executeQuery()) {
             while (rs.next()) {
+                 id_item.add(rs.getInt("id_item"));
                 items.add(new Item(rs.getString("name"),
                         rs.getString("description"),
                         Theme.valueOf(rs.getString("theme").toUpperCase()),
@@ -125,8 +128,11 @@ public class DaoItem implements DaoInterface<Item>{
                         rs.getBoolean("isimportant")));
             }
             //Añadir función externa para mostrar datos.
-            for (Item item : items) {
-                System.out.println(item);
+            for (int i = 0; i < items.size(); i++) {
+                System.out.println("┌─────────────────────────────────────────────────────────");
+                System.out.println("│ ID: " + id_item.get(i));
+                System.out.println("│ " + items.get(i));
+                System.out.println("└─────────────────────────────────────────────────────────");
             }
         }
         return items;

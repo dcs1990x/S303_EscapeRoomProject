@@ -18,10 +18,10 @@ public class ItemService {
         return daoItem.duplicate(item);
     }
 
-    public void addItem(Item item){
+    public void addItem(Item item, int id){
         try{
             if(!item.isEmpty()||!searchDuplicates(item)){
-                daoItem.insertEntity(item);}
+                daoItem.insertEntity(item, id);}
             else{System.out.println("The item was empty, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){

@@ -52,9 +52,9 @@ public class Menu {
                 }
             } catch (InputMismatchException ime){
                 System.out.println(ime.getMessage());
-            } catch (NoSuchObjectException nsoe) {
+            }/* catch (NoSuchObjectException nsoe) {
                 System.out.println(nsoe.getMessage());
-            }
+            }*/
         }
     }
 }

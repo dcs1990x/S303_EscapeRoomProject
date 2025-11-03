@@ -7,9 +7,13 @@ public class DatabaseManagerTest {
 
     public static Connection getConnection() {
         // Leer variables de entorno
-        String dbUrl = System.getenv("DB_URL");
+      /* String dbUrl = System.getenv("DB_URL");
         String dbUser = System.getenv("DB_USER");
-        String dbPass = System.getenv("DB_PASS");
+        String dbPass = System.getenv("DB_PASS");*/
+
+        String dbUrl = "jdbc:h2:tcp://localhost:1521/test";
+        String dbUser = "sa";
+        String dbPass = "123456";
 
         // Debug: Imprimir variables
         System.out.println("DB_URL: " + dbUrl);

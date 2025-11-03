@@ -6,19 +6,32 @@ import java.util.List;
 public class Room implements RoomSolvedCallback{
 
     private String name;
+    private double price;
     private Theme theme;
     private Difficulty difficulty;
     private boolean isSolved;
     private List<Decoration> decorations = new ArrayList<>();
     private List<Item> items = new ArrayList<>();
     private List<Clue> clues = new ArrayList<>();
+    private int idRoom;
 
+    public Room(){}
+
+    public Room(String name, Difficulty difficulty, double price){
+        this.name = name;
+        this.difficulty = difficulty;
+        this.price = price;
+    }
     public String getName(){
         return this.name;
     }
 
     public Theme getTheme(){
         return this.theme;
+    }
+
+    public double getPrice(){
+        return this.price;
     }
 
     public boolean getSolvedStatus(){
@@ -46,6 +59,10 @@ public class Room implements RoomSolvedCallback{
 
     public void setName(String name){
         this.name = name;
+    }
+
+    public void setIdRoom(int idRoom){
+        this.idRoom = idRoom;
     }
 
     public void setTheme(Theme theme){
