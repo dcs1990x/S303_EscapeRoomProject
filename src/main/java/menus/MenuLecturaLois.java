@@ -1,8 +1,5 @@
-<<<<<<<< HEAD:src/main/java/menu/MenuLecturaLois.java
-package menu;
-========
 package menus;
->>>>>>>> upstream/dev_lois_menu_integration:src/main/java/menus/MenuLecturaLois.java
+
 
 import servicelayer.ClueService;
 import servicelayer.ItemService;

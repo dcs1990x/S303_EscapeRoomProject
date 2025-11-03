@@ -1,6 +1,6 @@
 package dtomodel;
 
-public record ClueDTO(String name, String description, int difficultyPoints, boolean isSolved){
+public record ClueDTO(String name, String description, int difficultyPoints, boolean isSolved, double Price){
 
     @Override
     public String toString() {
