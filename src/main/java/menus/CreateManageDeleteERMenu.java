@@ -19,6 +19,7 @@ public class CreateManageDeleteERMenu {
     private final MenuEliminacionLois menuEliminacionLois = new MenuEliminacionLois(); // ver nota de renombre
     private final MenuLecturaLois menuLecturaLois = new MenuLecturaLois();
     private final ClueMenu clueMenu = new ClueMenu();
+    private final InventoryMenu inventoryMenu = new InventoryMenu();
 
     public void showWelcomeMessage(){
         System.out.println("\n<========WELCOME TO THE ESCAPE ROOM MANAGER APP========>");
@@ -31,6 +32,7 @@ public class CreateManageDeleteERMenu {
                 "3. DELETE EXISTING ESCAPE ROOM" + System.lineSeparator() +
                 "4. MANAGE ITEMS" + System.lineSeparator() +
                 "5. MANAGE CLUES" + System.lineSeparator() +
+                "6. MANAGE INVENTORY" + System.lineSeparator() +
                 "0. EXIT THE PROGRAMME" + System.lineSeparator());
     }
 
@@ -75,9 +77,14 @@ public class CreateManageDeleteERMenu {
                 executeMainMenuOption();
 
             } else if (mainMenuOption == 5) {
-                clueMenu.optionSelector();
-                showMainMenu();
-                executeMainMenuOption();
+                    clueMenu.optionSelector();
+                    showMainMenu();
+                    executeMainMenuOption();
+             }
+                else if (mainMenuOption == 6) {
+                    inventoryMenu.optionSelector();
+                    showMainMenu();
+                    executeMainMenuOption();
 
             } else if (mainMenuOption == 0) {
                     System.out.println("\nYou exited the programme. \n");

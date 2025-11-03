@@ -68,11 +68,3 @@ public class ClueService{
     }
 
 }
-/*
-    }
-    public ClueDTO getClue(Long id) throws Exception {
-        final Clue clue = clueDAO.readEntity(id);
-
-        return new ClueDTO(clue.getName(),clue.getDescription(),clue.getDifficultyPoints(),clue.getIsSolved());
-    }
-*/
