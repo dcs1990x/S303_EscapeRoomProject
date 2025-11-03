@@ -23,9 +23,9 @@ public class EscapeRoom {
     }
 
     public List<Room> getRoomsList(){
-        return rooms;
+        return List.copyOf(rooms);
     }
-
+/*
     public Room createRoom(RoomBuilderInterface roomBuilder){
         String RoomName = UserInput.readLine("Please enter the name of the room: ");
         roomBuilder.setRoomName(RoomName);
@@ -59,7 +59,7 @@ public class EscapeRoom {
         rooms.add(roomCreated);
         return roomCreated;
     }
-
+*/
     public Optional<Room> getRoomByConsole() throws NoSuchObjectException {
         System.out.println("\nThese are the existing rooms: \n");
         System.out.println("\n" + this.getRoomsList() + "\n");

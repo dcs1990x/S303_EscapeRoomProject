@@ -115,7 +115,7 @@ public class DaoClue implements DaoInterface<Clue>{
 
     @Override
     public void updateEntity(long entityId, Clue entity) throws Exception {
-        String sql = "UPDATE clues SET name = ?, description = ?, theme = ?, difficulty-points = ?, is-important = ?, is-solved = ? WHERE id = ?";
+        String sql = "UPDATE \"clue\" SET name = ?, description = ?, theme = ?, difficultyPoints = ?, isImportant = ?, isSolved = ? WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1, entity.getName());
             pstmt.setString(2, entity.getDescription());
@@ -124,9 +124,13 @@ public class DaoClue implements DaoInterface<Clue>{
             pstmt.setBoolean(5, entity.getIsImportant());
             pstmt.setBoolean(6, entity.getIsSolved());
             pstmt.setLong(7, entityId);
-            pstmt.executeUpdate();
+            int rows = pstmt.executeUpdate();
+            System.out.println("Filas actualizadas: " + rows);
 
-        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        }catch (SQLException sqlExcep3) {
+            sqlExcep3.printStackTrace();
+            System.err.println("❌ Error en updateEntity: " + sqlExcep3.getMessage());
+        }
     }
 
     @Override

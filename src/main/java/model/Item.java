@@ -41,4 +41,16 @@ public class Item {
     public long getIdItem() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "idItem=" + idItem +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", theme=" + theme +
+                ", price=" + price +
+                ", isImportant=" + isImportant +
+                '}';
+    }
 }

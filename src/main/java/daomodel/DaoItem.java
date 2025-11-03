@@ -1,14 +1,14 @@
 package daomodel;
 
 import database.DatabaseManagerTest;
-
+import model.Clue;
 import model.Item;
 import model.Theme;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 
 public class DaoItem implements DaoInterface<Item>{
     Connection connectionDB;
@@ -42,9 +42,14 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void insertEntity(Item entity) {
+    public void insertEntity(Item entity) throws Exception {
+        // Verificar conexión
+        if (connectionDB == null) {
+            throw new SQLException("❌ Connection is null in insertEntity");
+        }
         try {
-            String sql_Insert2 = "INSERT INTO items (name, description, theme, price, is-important) VALUES(?,?,?,?,?);";
+
+            String sql_Insert2 = "INSERT INTO \"item\" (name, description, theme, price, isimportant) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement sqlToInsert = connectionDB.prepareStatement(sql_Insert2, Statement.RETURN_GENERATED_KEYS);
             sqlToInsert.setString(1, entity.getName());
             sqlToInsert.setString(2, entity.getDescription());
@@ -57,13 +62,14 @@ public class DaoItem implements DaoInterface<Item>{
                     entity.setIdItem(rs.getInt(1));
                 }
             }
-        } catch (SQLException sqlExcep2) {
-            sqlExcep2.getMessage();
+        } catch (Exception e) {
+            e.printStackTrace();  // muestra la excepción completa
+            System.err.println("❌ Error al insertar item: " + e.getMessage());
         }
     }
 
     @Override
-    public Item readEntity(long entityId) {
+    public Item readEntity(long entityId) throws Exception {
         String sql = "SELECT * FROM items WHERE id = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
@@ -80,8 +86,8 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void updateEntity(long entityId, Item entity) {
-        String sql = "UPDATE items SET name = ?, description = ?, theme = ?, price = ?, is-important = ? WHERE id = ?";
+    public void updateEntity(long entityId, Item entity) throws Exception {
+        String sql = "UPDATE \"item\" SET name = ?, description = ?, theme = ?, price = ?, isimportant = ? WHERE id_item = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setString(1, entity.getName());
             pstmt.setString(2, entity.getDescription());
@@ -94,18 +100,19 @@ public class DaoItem implements DaoInterface<Item>{
     }
 
     @Override
-    public void deleteEntity(long entityId) {
-        String sql = "DELETE FROM items WHERE id = ?";
+    public void deleteEntity(long entityId) throws Exception {
+        String sql = "DELETE FROM \"item\" WHERE id_item = ?";
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
             pstmt.setLong(1, entityId);
             pstmt.executeUpdate();
             System.out.println("The deletion was completed successfully. \n");
-        } catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        } catch(SQLException sqlExcep3){
+            System.out.println(sqlExcep3.getMessage());}
     }
 
     @Override
-    public List<Item> readAllEntities() throws Exception {
-        String sql = "SELECT * FROM items";
+    public List readAllEntities() throws Exception {
+        String sql = "SELECT * FROM \"item\"";
         List<Item> items = new ArrayList<>();
         try (
                 PreparedStatement pstmt = connectionDB.prepareStatement(sql);
@@ -113,9 +120,13 @@ public class DaoItem implements DaoInterface<Item>{
             while (rs.next()) {
                 items.add(new Item(rs.getString("name"),
                         rs.getString("description"),
-                        Theme.valueOf(rs.getString("theme").toLowerCase()),
+                        Theme.valueOf(rs.getString("theme").toUpperCase()),
                         rs.getDouble("price"),
-                        rs.getBoolean("is-important")));
+                        rs.getBoolean("isimportant")));
+            }
+            //Añadir función externa para mostrar datos.
+            for (Item item : items) {
+                System.out.println(item);
             }
         }
         return items;

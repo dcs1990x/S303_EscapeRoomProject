@@ -60,14 +60,14 @@ public class DaoRoom implements DaoInterface<Room>{
              ResultSet rs = pstmt.executeQuery()) {
 
             while (rs.next()) {
-                int roomId = rs.getInt("ID_ROOM");
+            //    int roomId = rs.getInt("ID_ROOM");
                 String roomName = rs.getString("ROOM_NAME");
                 System.out.println(roomName);
                 String difficulty = rs.getString("DIFFICULTY");
                 double price = rs.getDouble("PRICE");
-                int itemName = rs.getInt("ID_ITEM");
+               // int itemName = rs.getInt("ID_ITEM");
                 String itemId = rs.getString("ITEM_NAME");
-                int clueId = rs.getInt("CLUE_ID");
+               // int clueId = rs.getInt("CLUE_ID");
                 String clueName = rs.getString("CLUE_NAME");
                 System.out.println("[Clue name]: " + clueName);
             }

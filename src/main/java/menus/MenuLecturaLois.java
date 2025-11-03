@@ -1,4 +1,8 @@
+<<<<<<<< HEAD:src/main/java/menu/MenuLecturaLois.java
 package menu;
+========
+package menus;
+>>>>>>>> upstream/dev_lois_menu_integration:src/main/java/menus/MenuLecturaLois.java
 
 import servicelayer.ClueService;
 import servicelayer.ItemService;
@@ -16,8 +20,9 @@ public class MenuLecturaLois {
 
        // readRooms(); //Nos da tanto los datos de la room como sus pistas y objetos asociados.
         //Read clues
-        readClue();
+       // readClue();
         //Read items.
+        readItems();
     }
 
     public void readRooms() {
@@ -39,7 +44,13 @@ public class MenuLecturaLois {
         //Conexión a service para leer todas las pistas.
     }
 
-    private void readItems() {
+    public void readItems() {
         //Conexión a service para leer todos los Items
+        try {
+            itemService.getItems();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        //Conexión a service para leer todas las pistas.
     }
 }
