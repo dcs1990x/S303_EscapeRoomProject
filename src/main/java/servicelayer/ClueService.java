@@ -11,7 +11,7 @@ import java.util.List;
 
 
 public class ClueService{
-    private final DaoClue clueDAO = new DaoClue();
+    private final DaoClue clueDAO =  DaoClue.getInstance();
 
     public ClueService(){}
 

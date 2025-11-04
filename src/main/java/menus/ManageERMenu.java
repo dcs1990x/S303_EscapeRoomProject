@@ -12,7 +12,7 @@ public class ManageERMenu {
 
     private CreateManageDeleteERMenu createManageDeleteERMenu;
     private EscapeRoom escapeRoom;
-    private RoomBuilderInterface roomBuilder;
+    private RoomBuilderInterface roomBuilder = new RoomBuilder();
     private RoomService roomService = new RoomService();
 
     public static void modifyRoomsMenu() {
@@ -33,7 +33,10 @@ public class ManageERMenu {
                 modifyRoomsMenuOption = UserInput.readByte("Please select an option: ");
 
                 if (modifyRoomsMenuOption == 1){
-                    Room room = escapeRoom.createRoom();
+                    Room room =  roomBuilder.setRoomName(UserInput.readLine("Type the name of your room: "))
+                            .setRoomDifficulty(Difficulty.VERY_EASY)
+                            .setRoomTheme(Theme.SPACE)
+                            .createRoom();
                     System.out.println("\nThe room was created successfully. ");
                     roomService.insertRoom(room);
                     modifyRoomsMenu();
@@ -43,7 +46,7 @@ public class ManageERMenu {
                     roomService.readAllRooms();
 
                     int id = UserInput.readInt("Type the id of the room you want to modify: ");
-                    Room room = new Room(UserInput.readLine("Ingrese el nuevo nombre"), Difficulty.VERY_EASY,
+                    Room room = new Room(UserInput.readLine("Type the name of your room: "), Difficulty.VERY_EASY,
                              UserInput.readInt("Type the new price"));
                     roomService.updateRoom(room, id);
                     /// //////////////////////////////////////////

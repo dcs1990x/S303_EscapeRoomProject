@@ -26,7 +26,7 @@ public class ItemMenu {
             System.out.println("3. Update Item");
             System.out.println("4. Delete Item");
             System.out.println("0. Exit");
-            opcion = UserInput.readInt("Seleccione una opción: ");
+            opcion = UserInput.readInt("Choose an option: ");
 
             switch(opcion) {
                 case 1:
@@ -42,26 +42,26 @@ public class ItemMenu {
                     deleteItem();
                     break;
                 case 0:
-                    System.out.println("Saliendo del menú...");
+                    System.out.println("Exiting the menu...");
                     break;
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción del 0 al 4.");
+                    System.out.println("Non valid option. Please type a number between 0 and 4");
             }
         } while(opcion != 0);
     }
 
     private void createItem() {
-        Item item = new Item(UserInput.readLine("Ingrese nombre: "), UserInput.readLine("Ingrese descripcion: "),
-                Theme.SCI_FI, UserInput.readInt("Ingrese precio: "), true);
+        Item item = new Item(UserInput.readLine("Type the name: "), UserInput.readLine("Type the description: "),
+                Theme.SPACE, UserInput.readInt("Type the price: "), true);
         lectura.readRooms();
-        itemService.addItem(item, UserInput.readInt("Ingrese id de la habitación donde ingresará la pista"));
+        itemService.addItem(item, UserInput.readInt("Type the id of the room you want to include the item: "));
     }
 
     private void modifyItem() {
         lectura.readRooms();
-        int id = UserInput.readInt("Seleccione la id del item a modificar: ");
-        Item item = new Item(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
-                Theme.SCI_FI, UserInput.readInt("Ingrese el nuevo precio"), true);
+        int id = UserInput.readInt("Type the id of the item you want to modify: ");
+        Item item = new Item(UserInput.readLine("Type the new name: "), UserInput.readLine("Type the new description: "),
+                Theme.SPACE, UserInput.readInt("Type the new price: "), true);
         itemService.updateItem(item,id);
     }
 
@@ -76,7 +76,7 @@ public class ItemMenu {
     private void deleteItem(){
         readItems();
         try {
-            itemService.deleteItemById(UserInput.readInt("Selecciona la id del item a modificar: "));
+            itemService.deleteItemById(UserInput.readInt("Type the id of the item you want to delete: "));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

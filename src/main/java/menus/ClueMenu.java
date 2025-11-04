@@ -41,27 +41,27 @@ public class ClueMenu {
                     deleteClue();
                     break;
                 case 0:
-                    System.out.println("Saliendo del menú...");
+                    System.out.println("Exiting the menu...");
                     break;
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción del 0 al 4.");
+                    System.out.println("Non velid option. Please choose an option between 0 and 4");
             }
         } while(opcion != 0);
     }
 
     private void createClue() {
 
-        Clue clue = new Clue(UserInput.readLine("Ingrese nombre"), UserInput.readLine("Ingrese descripcion"),
-                Theme.SCI_FI, UserInput.readInt("Ingrese puntos de dificultad"), true, false);
+        Clue clue = new Clue(UserInput.readLine("Type name: "), UserInput.readLine("Type description: "),
+                Theme.SPACE, UserInput.readInt("Type dificulty points: "), true, false);
         lectura.readRooms();
-        clueService.addClue(clue, UserInput.readInt("Ingrese id de la habitación donde ingresará la pista"));
+        clueService.addClue(clue, UserInput.readInt("Type the id of the room you would like to put your clue: "));
     }
 
     private void modifyClue() {
         lectura.readRooms();//Llamar desde el service de DaoRoom
-        int id = UserInput.readInt("Seleccione la id de la clue a modificar: ");
-        Clue clue = new Clue(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
-                Theme.SCI_FI, UserInput.readInt("Ingrese la nueva dificultad") , true, false);
+        int id = UserInput.readInt("Type the id of the clue you want to modify: ");
+        Clue clue = new Clue(UserInput.readLine("Tyoe the new name"), UserInput.readLine("Type the new description: "),
+                Theme.SPACE, UserInput.readInt("Type the new difficulty: ") , true, false);
         clueService.updateClue(clue, id);
     }
 
@@ -76,7 +76,7 @@ public class ClueMenu {
     private void deleteClue()  {
         readClue();
         try {
-            clueService.deleteClueById(UserInput.readInt("Selecciona la id de la clue a modificar: "));
+            clueService.deleteClueById(UserInput.readInt("Type the id of the clue you want to delete: "));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

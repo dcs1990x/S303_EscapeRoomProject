@@ -48,14 +48,14 @@ public class EscapeRoom {
         roomBuilder.setRoomDifficulty(Difficulty.valueOf(String.valueOf(difficulty)));
 
         byte addDecoOrGoBackOption = 1;
-       /* while (addDecoOrGoBackOption == 1) {
+        while (addDecoOrGoBackOption == 1) {
             System.out.println("These are the available decorations for the rooms: \n");
             decorationService.readAllEntities();
-            String decorationString = UserInput.readLine("Type a piece of decoration to add to the room: ");;
-            Optional<DecorationDTO> decoration = decorationService.getDecorationFromString(decorationString);
-            roomBuilder.addRoomDecoration(decoration);
+          //  String decorationString = UserInput.readLine("Type a piece of decoration to add to the room: ");;
+          //  Optional<DecorationDTO> decoration = decorationService.getDecorationFromString(decorationString);
+          //  roomBuilder.addRoomDecoration(decoration);
             addDecoOrGoBackOption = UserInput.readByte("Would you like to add another piece of decoration? Press 1 to add another decoration, press any other key to go back: ");
-        }*/
+        }
 
         byte addItemOrGoBackOption = 1;
         while (addItemOrGoBackOption == 1) {

@@ -15,7 +15,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class InventoryMenu extends CreateManageDeleteERMenu{
+public class InventoryMenu {
     Connection connectionDB;
     ClueView clueView = new ClueView();
     ItemView itemView = new ItemView();
@@ -45,8 +45,7 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
                     showAssetsValue();
                     break;
                 case 4:
-                    showMainMenu();
-                    executeMainMenuOption();
+                    System.out.println("Exiting menu...");
                     break;
                 case 0:
                     System.out.println("Getting out of the menu...");
@@ -65,8 +64,8 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
 
         } catch (Exception e) {
             System.out.println("Cannot be retrieved clues/items/rooms from the DB. Something wrong has happened. Please contact support");
-            showMainMenu();
-            executeMainMenuOption();
+         //   showMainMenu();
+         //   executeMainMenuOption();
         }
 
     }
@@ -78,7 +77,7 @@ public class InventoryMenu extends CreateManageDeleteERMenu{
                 throw new SQLException("❌ Connection is null");
             }
             double total = 0;
-            String[] tables = {"clue", "decoration", "item", "room"};
+            String[] tables = {"\"clue\"", "decoration", "\"item\"", "\"room\""};
 
             for (String table : tables) {
                 String sql = "SELECT SUM(price) AS total_price FROM " + table;
