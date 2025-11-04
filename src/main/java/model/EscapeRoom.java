@@ -8,6 +8,7 @@ import java.util.*;
 
 public class EscapeRoom {
 
+    private int idEscapeRoom;
     private String name;
     private List<Room> rooms;
     private RoomBuilderInterface roomBuilder = new RoomBuilder();
@@ -19,6 +20,11 @@ public class EscapeRoom {
     }
 
     public EscapeRoom(String name) throws Exception{
+        this.name = name;
+        this.rooms = new ArrayList<>();
+    }
+    public EscapeRoom(int idEscapeRoom, String name) throws Exception{
+        this.idEscapeRoom = idEscapeRoom;
         this.name = name;
         this.rooms = new ArrayList<>();
     }
@@ -102,8 +108,19 @@ public class EscapeRoom {
         this.roomBuilder = roomBuilder;
     }
 
+    public int getIdEscapeRoom() {
+        return idEscapeRoom;
+    }
+
+    public void setIdEscapeRoom(int idEscapeRoom) {
+        this.idEscapeRoom = idEscapeRoom;
+    }
+
     @Override
     public String toString(){
         return this.getEscapeRoomName();
+    }
+    public boolean isEmpty(){
+        return idEscapeRoom == 0 && name == null;
     }
 }

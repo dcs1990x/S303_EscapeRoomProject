@@ -28,7 +28,7 @@ public class DaoEscapeRoom implements DaoInterface<EscapeRoom> {
         }
     }
 
-    public boolean searchDuplicates(EscapeRoom entity, int id) throws Exception {
+    public boolean searchDuplicates(EscapeRoom entity) throws Exception {
         String sql = "SELECT * FROM ESCAPE_ROOM WHERE ID_ESCAPE_ROOM = ? , NAME = ?";
         EscapeRoom escapeRoomObtained = new EscapeRoom();
         try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
@@ -46,12 +46,12 @@ public class DaoEscapeRoom implements DaoInterface<EscapeRoom> {
         return escapeRoomObtained.equals(entity);
     }
 
-    public void insertEntity(EscapeRoom entity, int id) throws Exception {
+    public void insertEntity(EscapeRoom entity) throws Exception {
         if (connectionDB == null) {
             throw new SQLException("❌ Connection is null in insertEntity");
         }
 
-        if (!escapeRoom.isEmpty() || searchDuplicates(entity,id)) {
+        if (!escapeRoom.isEmpty() || searchDuplicates(entity)) {
             String sql = "INSERT INTO \"ESCAPE_ROOM\" (NAME) VALUES(?)";
             EscapeRoom escapeRoomObtained = new EscapeRoom();
             try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
@@ -94,7 +94,7 @@ public class DaoEscapeRoom implements DaoInterface<EscapeRoom> {
 
         @Override
         public void updateEntity ( long entityId, EscapeRoom entity) throws Exception {
-            if (!escapeRoom.isEmpty() || searchDuplicates(entity,(int)entityId)) {
+            if (!escapeRoom.isEmpty() || searchDuplicates(entity)) {
                 String sql = "UPDATE \"ESCAPE_ROOM\"  NAME = ? WHERE ID_ESCAPE_ROOM = ?";
                 try (PreparedStatement pstmt = connectionDB.prepareStatement(sql)) {
 

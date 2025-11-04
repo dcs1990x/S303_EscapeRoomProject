@@ -1,25 +1,25 @@
 package menus;
 
+import daomodel.DaoEscapeRoom;
 import model.EscapeRoom;
-import model.EscapeRoomManager;
 import model.RoomBuilderInterface;
 import model.UserInput;
 import java.util.InputMismatchException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Scanner;
 
 import static menus.ManageERMenu.modifyRoomsMenu;
 
 public class CreateManageDeleteERMenu {
 
-    private static final EscapeRoomManager escapeRoomManager = EscapeRoomManager.getInstance();
+
     private ManageERMenu manageERMenu = new ManageERMenu();
     private final ItemMenu itemMenu = new ItemMenu();
     private final MenuEliminacionLois menuEliminacionLois = new MenuEliminacionLois(); // ver nota de renombre
     private final MenuLecturaLois menuLecturaLois = new MenuLecturaLois();
     private final ClueMenu clueMenu = new ClueMenu();
     private final InventoryMenu inventoryMenu = new InventoryMenu();
+    DaoEscapeRoom daoEscapeRoom = new DaoEscapeRoom();
 
     public void showWelcomeMessage(){
         System.out.println("\n<========WELCOME TO THE ESCAPE ROOM MANAGER APP========>");
@@ -43,13 +43,14 @@ public class CreateManageDeleteERMenu {
                 mainMenuOption = UserInput.readByte("Please select an option: ");
 
                 if (mainMenuOption == 1) {
-                    EscapeRoom escapeRoom = escapeRoomManager.createEscapeRoom();
+                    EscapeRoom escapeRoom = new EscapeRoom(UserInput.readLine("Please insert the name of the EscapeRoom"));
                     System.out.println("The escape room \"" + escapeRoom.getEscapeRoomName() + "\" was created successfully. ");
+                    daoEscapeRoom.insertEntity(escapeRoom);
                     //Llamar a service Esaperoom para pasar a DB.
                     showMainMenu();
                 } else if (mainMenuOption == 2) {
                     Optional<EscapeRoom> selectedEscapeRoom;
-                    selectedEscapeRoom = escapeRoomManager.getEscapeRoomByConsole();
+                    selectedEscapeRoom = getEscapeRoomByConsole();
                     //Mostrar escapeRoom.
 
                     if (selectedEscapeRoom.isEmpty()) {
@@ -63,9 +64,9 @@ public class CreateManageDeleteERMenu {
                         throw new InputMismatchException();
                     }
                 } else if (mainMenuOption == 3) {
-                    Optional<EscapeRoom> selectedEscapeRoom = escapeRoomManager.getEscapeRoomByConsole();
+                    Optional<EscapeRoom> selectedEscapeRoom = getEscapeRoomByConsole();
                     EscapeRoom escapeRoomToDelete = selectedEscapeRoom.get();
-                    escapeRoomManager.deleteEscapeRoom(Optional.of(escapeRoomToDelete));
+                    daoEscapeRoom.deleteEntity(escapeRoomToDelete.getIdEscapeRoom());
                     System.out.println("The escape room \"" + escapeRoomToDelete.getEscapeRoomName() + "\" was deleted successfully. ");
                     showMainMenu();
                     executeMainMenuOption();
@@ -110,5 +111,17 @@ public class CreateManageDeleteERMenu {
 
     public void setRoomBuilder(RoomBuilderInterface roomBuilder) {
         manageERMenu.setRoomBuilder(roomBuilder);
+    }
+    public Optional<EscapeRoom> getEscapeRoomByConsole() throws Exception {
+
+        int id = UserInput.readInt("\nPlease type the escape room's id or type \"Return\" to go back: ");
+        String name = UserInput.readLine("\nPlease type the escape room's name or type \"Return\" to go back: ");
+
+            if (name.equalsIgnoreCase("return")|| id == 0) {
+                return Optional.empty();
+            }
+            else{
+                return Optional.of(new EscapeRoom(id,name));
+            }
     }
 }

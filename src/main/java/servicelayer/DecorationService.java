@@ -64,13 +64,4 @@ public class DecorationService {
         decorationDAO.deleteEntity(id);
     }
 
-    public Optional<DecorationDTO> getDecorationFromString(String input) throws Exception {
-        if (input == null || input.trim().isEmpty()) {
-            return Optional.empty();
-        }
-
-        return readAllEntities().stream()
-                .filter(d -> d.getName().equalsIgnoreCase(input.trim()))
-                .findFirst();
-    }
 }
