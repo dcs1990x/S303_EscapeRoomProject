@@ -82,7 +82,7 @@ public class DaoRoom implements DaoInterface<Room> {
 
     @Override
     public List<Room> readAllEntities() throws Exception {
-        this.connectionDB = DatabaseManagerTest.getConnection();
+       // this.connectionDB = DatabaseManagerTest.getConnection();
         if (connectionDB == null) {
             throw new SQLException("❌ Connection is null");
         }

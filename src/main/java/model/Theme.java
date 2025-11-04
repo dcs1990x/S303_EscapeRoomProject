@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public enum Theme {
 
-    HORROR("Horror"), SCI_FI("Sci-Fi"), VICTORIAN("Victorian"), FANTASY("Fantasy");
+    HORROR("Horror"), SPACE("Space"), VICTORIAN("Victorian"), FANTASY("Fantasy");
 
     private String description;
 
@@ -28,5 +28,14 @@ public enum Theme {
         for (Theme theme : Theme.values()){
             System.out.println(theme.getDescription());
         }
+    }
+
+    public static Theme fromDescription(String description) {
+        for (Theme theme : Theme.values()) {
+            if (theme.getDescription().equalsIgnoreCase(description)) {
+                return theme;
+            }
+        }
+        throw new IllegalArgumentException("No existe el tema: " + description);
     }
 }

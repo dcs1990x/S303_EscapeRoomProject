@@ -8,10 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class DaoClue implements DaoInterface<Clue>{
-    Connection connectionDB;
+public class DaoClue implements DaoInterface<Clue> {
+    private static DaoClue instance;
+    private Connection connectionDB;
 
-    public DaoClue(){
+    // Constructor privado
+    private DaoClue() {
         System.out.println("Inicializando DaoClue...");
         try {
             this.connectionDB = DatabaseManagerTest.getConnection();
@@ -24,6 +26,14 @@ public class DaoClue implements DaoInterface<Clue>{
             System.err.println("❌ Error al obtener conexión: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+
+    // Método para obtener la única instancia
+    public static DaoClue getInstance() {
+        if (instance == null) {
+            instance = new DaoClue();
+        }
+        return instance;
     }
 
 
