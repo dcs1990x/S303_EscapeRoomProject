@@ -63,5 +63,7 @@ public class DecorationService {
     public void deleteClueById(long id) throws Exception {
         decorationDAO.deleteEntity(id);
     }
-
+    public Optional<Decoration> getDecorationFromString(String name){
+        return Optional.empty();
+    }
 }

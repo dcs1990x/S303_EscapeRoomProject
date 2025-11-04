@@ -31,8 +31,8 @@ public class RoomBuilder implements RoomBuilderInterface {
     }
 
     @Override
-    public RoomBuilderInterface addRoomDecoration(Optional<DecorationDTO> decoration) {
-        room.addDecoration(decoration);
+    public RoomBuilderInterface addRoomDecoration(Optional<Decoration> decoration) {
+        room.addDecoration(decoration.get());
         return this;
     }
 
