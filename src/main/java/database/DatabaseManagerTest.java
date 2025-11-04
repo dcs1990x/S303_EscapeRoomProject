@@ -37,7 +37,7 @@ public class DatabaseManagerTest {
             System.out.println("✅ Conexión establecida: " + conn);
             return conn;
         } catch (Exception e) {
-            System.err.println("❌ Error al conectar a H2: " + e.getMessage());
+            System.err.println("Error al conectar a H2: " + e.getMessage());
             e.printStackTrace();
             throw new RuntimeException("Error al conectar a H2", e);
         }
