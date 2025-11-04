@@ -1,9 +1,5 @@
 package model;
 
-
-
-import static model.Theme.*;
-
 public class Decoration {
 
     private int idDecoration;
@@ -49,7 +45,5 @@ public class Decoration {
     public boolean isEmpty(){
         return name == null && price == 0.0 && theme == null && idRoom == 0 ;
     }
-
-
 }
 

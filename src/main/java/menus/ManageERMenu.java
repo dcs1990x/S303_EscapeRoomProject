@@ -33,17 +33,11 @@ public class ManageERMenu {
                 modifyRoomsMenuOption = UserInput.readByte("Please select an option: ");
 
                 if (modifyRoomsMenuOption == 1){
-                    Room room =  roomBuilder.setRoomName(UserInput.readLine("Elije el nombre de una hab"))
-                            .setRoomDifficulty(Difficulty.VERY_EASY)
-                            .setRoomTheme(Theme.SCI_FI)
-                            .createRoom();
-
+                    Room room = escapeRoom.createRoom();
                     System.out.println("\nThe room was created successfully. ");
                     roomService.insertRoom(room);
                     modifyRoomsMenu();
                     executeModifyRoomsMenuOption();
-
-
                 } else if (modifyRoomsMenuOption == 2){
                     //Modificar habitaciones
                     roomService.readAllRooms();
@@ -57,12 +51,12 @@ public class ManageERMenu {
                     executeModifyRoomsMenuOption();
 
                 } else if (modifyRoomsMenuOption == 3){
-
+                    /*
                     Optional<Room> selectedRoom = escapeRoom.getRoomByConsole();
                     Room roomToDelete = selectedRoom.get();
                     escapeRoom.deleteEscapeRoom(roomToDelete);
                     System.out.println("The escape room \"" + roomToDelete.getName() + "\" was deleted successfully. ");
-
+                    */
                     roomService.readAllRooms();
                     try {
                         roomService.deleteRoomById(UserInput.readInt("Type the id of the room you want to delete: "));

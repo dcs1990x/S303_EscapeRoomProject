@@ -1,5 +1,9 @@
 package model;
 
+import dtomodel.DecorationDTO;
+
+import java.util.Optional;
+
 public class RoomBuilder implements RoomBuilderInterface {
 
     private Room room;
@@ -27,7 +31,7 @@ public class RoomBuilder implements RoomBuilderInterface {
     }
 
     @Override
-    public RoomBuilderInterface addRoomDecoration(Decoration decoration) {
+    public RoomBuilderInterface addRoomDecoration(Optional<DecorationDTO> decoration) {
         room.addDecoration(decoration);
         return this;
     }

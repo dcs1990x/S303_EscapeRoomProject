@@ -1,5 +1,6 @@
 package model;
 
+import dtomodel.DecorationDTO;
 import servicelayer.DecorationService;
 
 import java.rmi.NoSuchObjectException;
@@ -7,7 +8,6 @@ import java.util.*;
 
 public class EscapeRoom {
 
-    private int idEscapeRoom;
     private String name;
     private List<Room> rooms;
     private RoomBuilderInterface roomBuilder = new RoomBuilder();
@@ -22,12 +22,6 @@ public class EscapeRoom {
         this.name = name;
         this.rooms = new ArrayList<>();
     }
-    public EscapeRoom(int idEscapeRoom, String name) throws Exception{
-        this.idEscapeRoom = idEscapeRoom;
-        this.name = name;
-        this.rooms = new ArrayList<>();
-    }
-
 
     public String getEscapeRoomName(){
         return this.name;
@@ -55,11 +49,11 @@ public class EscapeRoom {
 
         byte addDecoOrGoBackOption = 1;
         while (addDecoOrGoBackOption == 1) {
-            System.out.println("Please create the decorations
-
-            String decorationString = UserInput.readLine("Type a piece of decoration to add to the room: ");
-            Optional<Decoration> decoration = Decoration.fromString(decorationString);
-            roomBuilder.addRoomDecoration(Decoration.valueOf(String.valueOf(decoration)));
+            System.out.println("These are the available decorations for the rooms: \n");
+            decorationService.readAllEntities();
+            String decorationString = UserInput.readLine("Type a piece of decoration to add to the room: ");;
+            Optional<DecorationDTO> decoration = decorationService.getDecorationFromString(decorationString);
+            roomBuilder.addRoomDecoration(decoration);
             addDecoOrGoBackOption = UserInput.readByte("Would you like to add another piece of decoration? Press 1 to add another decoration, press any other key to go back: ");
         }
 
@@ -108,19 +102,8 @@ public class EscapeRoom {
         this.roomBuilder = roomBuilder;
     }
 
-    public int getIdEscapeRoom() {
-        return idEscapeRoom;
-    }
-
-    public void setIdEscapeRoom(int idEscapeRoom) {
-        this.idEscapeRoom = idEscapeRoom;
-    }
-
     @Override
     public String toString(){
         return this.getEscapeRoomName();
-    }
-    public boolean isEmpty(){
-        return idEscapeRoom == 0 && name == null;
     }
 }
