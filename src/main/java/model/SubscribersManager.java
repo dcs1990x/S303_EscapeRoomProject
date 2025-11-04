@@ -1,15 +1,18 @@
 package model;
 
+import daomodel.DaoEscapeRoom;
+
 import java.util.ArrayList;
 
 public class SubscribersManager implements SubscribersManageable {
 
-    private EscapeRoomManager escapeRoomManager;
+
+    private DaoEscapeRoom escapeRoomManager = new DaoEscapeRoom();
     private static ArrayList<Player> subscribersList;
 
-    public SubscribersManager(EscapeRoomManager escapeRoomManager){
+    public SubscribersManager(){
         subscribersList = new ArrayList<>();
-        this.escapeRoomManager = escapeRoomManager;
+
     }
 
     public void getSubscribersList(){
@@ -28,6 +31,4 @@ public class SubscribersManager implements SubscribersManageable {
         subscribersList.remove(player);
     }
 
-    @Override
-    public void emailSubscribers() {}
 }

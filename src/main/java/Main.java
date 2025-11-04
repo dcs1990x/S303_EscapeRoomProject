@@ -5,7 +5,7 @@ import model.SubscribersManager;
 public class Main {
 
     public static void main(String[] args) {
-        SubscribersManager subscribersManager = new SubscribersManager(EscapeRoomManager.getInstance());
+        SubscribersManager subscribersManager = new SubscribersManager();
         RunApp runApp = new RunApp();
         runApp.run();
     }

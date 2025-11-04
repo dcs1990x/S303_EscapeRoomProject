@@ -52,7 +52,7 @@ public class ItemMenu {
 
     private void createItem() {
         Item item = new Item(UserInput.readLine("Ingrese nombre: "), UserInput.readLine("Ingrese descripcion: "),
-                Theme.SPACE, UserInput.readInt("Ingrese precio: "), true);
+                Theme.SCI_FI, UserInput.readInt("Ingrese precio: "), true);
         lectura.readRooms();
         itemService.addItem(item, UserInput.readInt("Ingrese id de la habitación donde ingresará la pista"));
     }
@@ -61,7 +61,7 @@ public class ItemMenu {
         lectura.readRooms();
         int id = UserInput.readInt("Seleccione la id del item a modificar: ");
         Item item = new Item(UserInput.readLine("Ingrese el nuevo nombre"), UserInput.readLine("Ingrese la nueva descripción"),
-                Theme.SPACE, UserInput.readInt("Ingrese el nuevo precio"), true);
+                Theme.SCI_FI, UserInput.readInt("Ingrese el nuevo precio"), true);
         itemService.updateItem(item,id);
     }
 

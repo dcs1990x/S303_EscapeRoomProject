@@ -10,9 +10,7 @@ import views.ItemView;
 import views.RoomView;
 
 public class InventoryMenu extends CreateManageDeleteERMenu{
-    ClueService clueService = new ClueService();
-    ItemService itemService = new ItemService();
-    RoomService roomService = new RoomService();
+
     MenuLecturaLois lectura = new MenuLecturaLois();
     ClueView clueView = new ClueView();
     ItemView itemView = new ItemView();
