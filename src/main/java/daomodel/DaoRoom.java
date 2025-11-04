@@ -17,7 +17,6 @@ public class DaoRoom implements DaoInterface<Room> {
 
 
 
-    @Override
     public void insertEntity(Room entity, int id) throws Exception {
         //El Id será el ESCAPEROOM en que quiere meter el room.
 

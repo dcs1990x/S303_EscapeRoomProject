@@ -49,11 +49,11 @@ public class DaoClue implements DaoInterface<Clue>{
                         rs.getBoolean("is-solved"));
             }
 
-        }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
+        }catch(SQLException sqlExcep3){return false;}
         return clueObtained.equals(clue);
     }
 
-    @Override
+
     public void insertEntity(Clue entity, int id_room) throws Exception {
         // Verificar conexión
         if (connectionDB == null) {

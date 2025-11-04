@@ -14,12 +14,12 @@ public class EscapeRoomManager {
 
     private EscapeRoomManager(){}
 
-    public static synchronized EscapeRoomManager getInstance(){
-        if (instance == null){
-            instance = new EscapeRoomManager();
-        }
-        return instance;
-    }
+   // public static synchronized EscapeRoomManager getInstance(){
+       // if (instance == null){
+        //    instance = new EscapeRoomManager();
+        //}
+       // return instance;
+    //}
 
     public EscapeRoom createEscapeRoom(){
         String name = UserInput.readLine("\nPlease write the escape room's name: ");

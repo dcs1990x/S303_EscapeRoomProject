@@ -35,7 +35,7 @@ public class ClueService{
         try{
             if(!clue.isEmpty()||searchDuplicates(clue)){
                 clueDAO.updateEntity(id, clue);}
-            else{System.out.println("The clue was empty, therefore it could not be inserted to DB.");}
+            else{System.out.println("The clue was empty/duplicated, therefore it could not be inserted to DB.");}
         }
         catch(Exception sqle1){
             System.err.println(sqle1.getMessage());

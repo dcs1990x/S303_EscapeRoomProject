@@ -43,7 +43,7 @@ public class DaoPlayer implements DaoInterface<Player> {
 
         return playerObtained.equals(player);
     }
-    @Override
+
     public void insertEntity(Player entity, int id) throws Exception {
         try {
             String sql_Insert2 = "INSERT INTO players (name,made-reservation,score,id-room) VALUES(?,?,?,?);";

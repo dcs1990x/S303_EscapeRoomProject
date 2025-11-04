@@ -50,7 +50,7 @@ public class DaoDecoration implements DaoInterface<Decoration> {
         return decorationObtained.equals(decoration);
     }
 
-    @Override
+
     public void insertEntity(Decoration decoration, int id_room) throws Exception {
         // Verificar conexión
         if (connectionDB == null) {

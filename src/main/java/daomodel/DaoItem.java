@@ -41,7 +41,7 @@ public class DaoItem implements DaoInterface<Item>{
         return itemObtained.equals(item);
     }
 
-    @Override
+
     public void insertEntity(Item entity, int id) throws Exception {
         // Verificar conexión
         if (connectionDB == null) {

@@ -43,7 +43,7 @@ public class DaoTicket implements DaoInterface<Ticket> {
         }catch(SQLException sqlExcep3){sqlExcep3.getMessage();}
         return ticketObtained.equals(ticket);
     }
-    @Override
+
     public void insertEntity(Ticket ticket, int id) throws Exception {
         try {
             String sql_Insert2 = "INSERT INTO tickets (player-id,player-name,ticket-title,date-sold,price-paid) VALUES(?,?,?,?,?);";
