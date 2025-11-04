@@ -29,13 +29,4 @@ public enum Theme {
             System.out.println(theme.getDescription());
         }
     }
-
-    public static Theme fromDescription(String description) {
-        for (Theme theme : Theme.values()) {
-            if (theme.getDescription().equalsIgnoreCase(description)) {
-                return theme;
-            }
-        }
-        throw new IllegalArgumentException("No existe el tema: " + description);
-    }
 }

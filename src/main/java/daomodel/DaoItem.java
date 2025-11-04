@@ -78,7 +78,7 @@ public class DaoItem implements DaoInterface<Item>{
             if (rs.next()) {
                 return new Item(rs.getString("name"),
                         rs.getString("description"),
-                        Theme.fromDescription(rs.getString("theme").toLowerCase()),
+                        Theme.valueOf(rs.getString("theme").toLowerCase()),
                         rs.getDouble("price"),
                         rs.getBoolean("is-important"));
             }

@@ -8,7 +8,7 @@ public class DecorationView {
 
     public void showDecorations() throws Exception{
         System.out.println("<======== Decorations ========>");
-        System.out.println(service.readAllEntities().toString());
+      //  System.out.println(service.readAllEntities().toString());
 
     }
 }
